@@ -1,0 +1,591 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="DualGround-TS grounds event-conditioned time-series predictions in future consistency and explanations in predictive behavior.">
+  <title>DualGround-TS — Ground the prediction. Ground the explanation.</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="script.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <nav class="nav shell" aria-label="Primary navigation">
+      <a class="brand" href="#top" aria-label="DualGround-TS home">
+        <span class="brand-mark" aria-hidden="true">D</span>
+        <span>DualTS</span>
+      </a>
+      <div class="nav-links">
+        <a href="#why">Why</a>
+        <a href="#how">How</a>
+        <a href="#results">Does it work</a>
+        <a href="#examples">Examples</a>
+        <a href="#resources">Resources</a>
+      </div>
+      <a class="nav-paper" href="#resources">Resources</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="hero shell" id="top">
+      <div class="hero-copy reveal">
+        <h1>DualGround-TS</h1>
+        <p class="paper-title">Future-consistent cross-modal integration with behaviorally grounded explanations for event-conditioned time-series prediction</p>
+        <p class="hero-lede">A framework for <strong>event-conditioned time-series forecasting</strong> that grounds predictions in the realized future and explanations in predictive behavior.</p>
+        <div class="hero-actions">
+          <a class="button primary" href="#resources">Project resources</a>
+          <a class="button secondary" href="#how">Explore the method</a>
+        </div>
+      </div>
+
+      <div class="one-line reveal" aria-label="DualGround-TS in one sentence">
+        <span class="one-line-label">What is DualGround-TS?</span>
+        <p>Most models are supervised only by the final forecast. <strong>DualGround-TS also supervises how that forecast is formed:</strong> it requires the event–history representation to agree with what happens next, and requires the explanation’s cited evidence to actually affect the prediction.</p>
+      </div>
+
+      <div class="summary-strip reveal" aria-label="DualGround-TS overview">
+        <div><span>01 · Read both sources</span><strong>Time series + textual event</strong><p>The same event can imply different outcomes under different temporal states.</p></div>
+        <div><span>02 · Ground the state</span><strong>Match the realized future</strong><p>The correct event–history pair should fit the observed future better than a mismatched pair.</p></div>
+        <div><span>03 · Ground the explanation</span><strong>Test the cited evidence</strong><p>Keeping, removing, or perturbing evidence should change the forecast in the expected way.</p></div>
+      </div>
+
+      <div class="grounding-explainer reveal" aria-label="Why DualGround-TS uses future grounding and behavioral grounding">
+        <div class="explainer-intro">
+          <span class="explainer-kicker">The core idea</span>
+          <h2>A correct forecast is not enough if the model reaches it for the wrong reason.</h2>
+          <p>Imagine predicting whether a stock will rise or fall. The model receives two kinds of evidence: a <strong>historical time series</strong> and a <strong>textual event</strong>. It should reason about them together—but a shortcut model may ignore one source and still guess the right answer.</p>
+        </div>
+
+        <div class="story-row" aria-label="From the intended reasoning process to the shortcut problem and DualGround solution">
+          <article class="story-card intended-card">
+            <span class="story-step">The intended reasoning</span>
+            <div class="story-visual evidence-pair" aria-hidden="true">
+              <div class="micro-icon micro-chart"><i></i><i></i><i></i><i></i><i></i></div>
+              <span>+</span>
+              <div class="micro-icon micro-news"><i></i><i></i><i></i></div>
+            </div>
+            <h3>Use the history and event together</h3>
+            <p>The meaning of an event depends on the state in which it occurs.</p>
+          </article>
+          <div class="story-link" aria-hidden="true"><span>but</span><b>→</b></div>
+          <article class="story-card shortcut-card">
+            <span class="story-step">The shortcut risk</span>
+            <div class="story-visual shortcut-visual" aria-hidden="true">
+              <span class="used-source">history</span>
+              <span class="ignored-source">event</span>
+            </div>
+            <h3>A model can rely on only one source</h3>
+            <p>A correct output alone does not prove that cross-modal reasoning happened.</p>
+          </article>
+          <div class="story-link" aria-hidden="true"><span>so</span><b>→</b></div>
+          <article class="story-card solution-card">
+            <span class="story-step">The DualGround solution</span>
+            <div class="story-visual dualground-visual" aria-hidden="true"><b>D</b><i></i><i></i></div>
+            <h3>Check how the answer was formed</h3>
+            <p>DualGround adds two tests that target different failure modes.</p>
+          </article>
+        </div>
+
+        <div class="grounding-sequence">
+          <article class="grounding-chapter future-chapter">
+            <header class="chapter-head">
+              <span class="chapter-number">1</span>
+              <div>
+                <span class="chapter-label">Future Grounding</span>
+                <h3>First, require the event–history judgment to agree with the realized future.</h3>
+                <p>Agreement with the future is useful, but the model might still succeed by following the historical trend alone. DualGround therefore creates a harder comparison: keep the history fixed and swap only the event.</p>
+              </div>
+            </header>
+
+            <div class="future-comparison" aria-label="The real event paired with the same history should fit the realized future better than a swapped event">
+              <div class="fixed-history">
+                <span class="diagram-caption">Held fixed</span>
+                <div class="micro-icon micro-chart large" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+                <strong>Same historical series</strong>
+                <small>Identical in both branches</small>
+              </div>
+              <div class="comparison-branches">
+                <div class="comparison-branch real-branch">
+                  <span class="event-token real-event">Real event</span>
+                  <span class="branch-arrow" aria-hidden="true">→</span>
+                  <span class="state-token">Matched state</span>
+                  <span class="branch-arrow" aria-hidden="true">→</span>
+                  <span class="future-result good-fit"><b>✓</b> Closer to the realized future</span>
+                </div>
+                <div class="comparison-branch swapped-branch">
+                  <span class="event-token wrong-event">Swapped event</span>
+                  <span class="branch-arrow" aria-hidden="true">→</span>
+                  <span class="state-token muted-state">Mismatched state</span>
+                  <span class="branch-arrow" aria-hidden="true">→</span>
+                  <span class="future-result weak-fit"><b>×</b> Farther from the realized future</span>
+                </div>
+              </div>
+            </div>
+            <p class="chapter-insight"><strong>Why this matters:</strong> because the historical series is exactly the same in both branches, the model must use the event to make the real pair win.</p>
+          </article>
+
+          <div class="sequence-bridge">
+            <span aria-hidden="true">↓</span>
+            <div><strong>But future agreement still does not guarantee a faithful explanation.</strong><p>The model could make a grounded prediction and then attach a plausible-sounding explanation afterward.</p></div>
+          </div>
+
+          <article class="grounding-chapter behavioral-chapter">
+            <header class="chapter-head">
+              <span class="chapter-number">2</span>
+              <div>
+                <span class="chapter-label">Behavioral Grounding</span>
+                <h3>Then, test whether the explanation names evidence that actually controls the prediction.</h3>
+                <p>Suppose the explanation claims that evidence <strong>A + B</strong> supports the forecast. DualGround intervenes on that evidence and checks whether the model behaves as the claim implies.</p>
+              </div>
+            </header>
+
+            <div class="explanation-claim">
+              <span class="claim-label">Explanation claims</span>
+              <div class="claim-chips"><span>A</span><b>+</b><span>B</span></div>
+              <p>“These are the important factors behind my prediction.”</p>
+            </div>
+
+            <div class="behavior-tests">
+              <article class="behavior-test retain-test">
+                <span class="test-number">Test 1</span>
+                <div class="test-visual" aria-hidden="true"><span>A</span><span>B</span><b>→</b><i>≈</i></div>
+                <h4>Retain A + B</h4>
+                <p>If the cited evidence is sufficient, keeping only it should preserve the prediction.</p>
+                <strong class="test-outcome stable-outcome">Prediction stays similar</strong>
+              </article>
+              <article class="behavior-test remove-test">
+                <span class="test-number">Test 2</span>
+                <div class="test-visual removed-visual" aria-hidden="true"><span>A</span><span>B</span><b>→</b><i>↕</i></div>
+                <h4>Remove A + B</h4>
+                <p>If the cited evidence is important, deleting it should meaningfully affect the prediction.</p>
+                <strong class="test-outcome change-outcome">Prediction changes</strong>
+              </article>
+              <article class="behavior-test irrelevant-test">
+                <span class="test-number">Test 3</span>
+                <div class="test-visual" aria-hidden="true"><span>A</span><span>B</span><span class="extra-chip">C</span><b>→</b><i>≈</i></div>
+                <h4>Add irrelevant C</h4>
+                <p>If C is unrelated, adding it should not make the prediction drift unpredictably.</p>
+                <strong class="test-outcome stable-outcome">Prediction remains stable</strong>
+              </article>
+            </div>
+
+            <p class="chapter-insight"><strong>What a faithful explanation should do:</strong> remain sufficient when retained, matter when removed, and stay selective when irrelevant context is added.</p>
+          </article>
+        </div>
+
+        <p class="explainer-takeaway"><strong>DualGround-TS therefore asks two different questions in sequence:</strong> “Did the model use the event together with the history to reach a future-consistent judgment?” and then, “Does the explanation identify the evidence that truly supports that judgment?”</p>
+      </div>
+    </section>
+
+    <section class="section soft" id="why">
+      <div class="shell">
+        <div class="section-heading reveal">
+          <p class="eyebrow">01 · Why</p>
+          <h2>Two shortcuts can produce a correct forecast for the wrong reason.</h2>
+          <p>Event-conditioned forecasting is a conditional reasoning problem: the event changes the meaning of the recent time-series state, while the state changes how the event should be interpreted. Final accuracy alone cannot tell us whether the model used that interaction.</p>
+        </div>
+
+        <div class="why-story">
+          <article class="why-panel shortcut-panel reveal">
+            <header class="why-panel-head">
+              <div>
+                <span class="why-label">Problem in the prediction</span>
+                <h3>Shortcut 1: predict from only one modality.</h3>
+                <p>A model may follow the historical trend and ignore the event, or react to event sentiment and ignore the temporal state. Either shortcut can succeed on easy examples without learning the intended cross-modal relationship.</p>
+              </div>
+            </header>
+
+            <div class="dependency-cases">
+              <section class="dependency-case">
+                <div class="case-heading">
+                  <span class="fixed-badge">Same event</span>
+                  <h4>The event means different things under different historical states.</h4>
+                </div>
+                <div class="case-rows" aria-label="The same event can produce opposite outcomes under different time-series states">
+                  <div class="case-row">
+                    <span class="series-state state-cool"><i></i><i></i><i></i><i></i></span>
+                    <span class="shared-event">rate cut</span>
+                    <span class="case-arrow" aria-hidden="true">→</span>
+                    <span class="case-outcome outcome-up">Market ↑</span>
+                  </div>
+                  <div class="case-row">
+                    <span class="series-state state-hot"><i></i><i></i><i></i><i></i></span>
+                    <span class="shared-event">rate cut</span>
+                    <span class="case-arrow" aria-hidden="true">→</span>
+                    <span class="case-outcome outcome-down">Market ↓</span>
+                  </div>
+                </div>
+                <p class="case-conclusion"><strong>So event text alone is insufficient:</strong> the model must read the temporal state to interpret the event.</p>
+              </section>
+
+              <section class="dependency-case">
+                <div class="case-heading">
+                  <span class="fixed-badge blue-fixed">Same history</span>
+                  <h4>The same historical state can lead to different futures after different events.</h4>
+                </div>
+                <div class="case-rows" aria-label="The same time-series history can produce opposite outcomes when paired with different events">
+                  <div class="case-row">
+                    <span class="series-state state-same"><i></i><i></i><i></i><i></i></span>
+                    <span class="changing-event positive-event">demand rises</span>
+                    <span class="case-arrow" aria-hidden="true">→</span>
+                    <span class="case-outcome outcome-up">Market ↑</span>
+                  </div>
+                  <div class="case-row">
+                    <span class="series-state state-same"><i></i><i></i><i></i><i></i></span>
+                    <span class="changing-event negative-event">supply shock</span>
+                    <span class="case-arrow" aria-hidden="true">→</span>
+                    <span class="case-outcome outcome-down">Market ↓</span>
+                  </div>
+                </div>
+                <p class="case-conclusion"><strong>So trend extrapolation alone is insufficient:</strong> the model must use the event to condition the forecast.</p>
+              </section>
+            </div>
+          </article>
+
+          <article class="why-panel explanation-panel reveal">
+            <header class="why-panel-head">
+              <div>
+                <span class="why-label">Problem in the explanation</span>
+                <h3>Shortcut 2: explain the answer after it has already been produced.</h3>
+                <p>A fluent rationale may mention plausible factors that had little influence on the forecast. We therefore need to intervene on the cited evidence and observe whether the prediction behaves as the explanation claims.</p>
+              </div>
+            </header>
+
+            <div class="posthoc-demo" aria-label="A warning case where removing cited evidence leaves the prediction unchanged">
+              <div class="posthoc-step explanation-claim-step">
+                <span class="demo-label">Explanation says</span>
+                <strong>“Trend A and event B support an increase.”</strong>
+              </div>
+              <span class="posthoc-arrow" aria-hidden="true">→</span>
+              <div class="posthoc-step intervention-step">
+                <span class="demo-label">Test the claim</span>
+                <div class="removed-evidence"><span>A</span><span>B</span></div>
+                <strong>Remove the cited evidence</strong>
+              </div>
+              <span class="posthoc-arrow" aria-hidden="true">→</span>
+              <div class="posthoc-step warning-step">
+                <span class="demo-label">Warning sign</span>
+                <strong>Prediction stays unchanged</strong>
+                <small>The explanation may be post-hoc.</small>
+              </div>
+            </div>
+          </article>
+
+          <div class="why-requirement reveal">
+            <div class="requirement-intro"><span class="why-label">What DualGround-TS must establish</span><h3>A grounded model must prove two things.</h3></div>
+            <div class="requirement-item"><div><strong>Cross-modal dependence</strong><small>The forecast responds to both the historical state and the event.</small></div></div>
+            <div class="requirement-item"><div><strong>Behavioral faithfulness</strong><small>The cited evidence has a measurable role in the forecast.</small></div></div>
+          </div>
+        </div>
+
+        <figure class="paper-figure reveal">
+          <img src="assets/motivation.png" alt="Paper motivation figure showing the same event under different temporal states, different events under a shared history, and behavioral tests of cited evidence.">
+          <figcaption><span>Figure 1</span> Joint multimodal assessment and behavioral support for explanations.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section" id="how">
+      <div class="shell">
+        <div class="section-heading reveal">
+          <p class="eyebrow">02 · How</p>
+          <h2>Build one shared state, then ground it in two complementary ways.</h2>
+          <p>DualGround-TS first extracts task-relevant evidence from the time series and event text, then fuses both sources into a shared state <em>G</em>. The forecast and explanation are decoded from that same state, while two training objectives constrain what information <em>G</em> must preserve.</p>
+        </div>
+
+        <div class="how-system">
+          <section class="inference-path reveal" aria-labelledby="inference-title">
+            <header class="how-block-head">
+              <span class="how-phase">The main prediction path</span>
+              <h3 id="inference-title">Read the two modalities separately; reason about them together.</h3>
+              <p>The temporal readout selects useful history, the event readout selects useful text, and their interaction is represented in <em>G</em>. Using one decoding basis ties the forecast and explanation to the same cross-modal evidence.</p>
+            </header>
+
+            <div class="inference-flow" aria-label="Historical series and textual event are encoded separately, fused into G, and decoded into a prediction and explanation">
+              <div class="how-node input-readouts">
+                <div class="readout-item"><div><strong>Temporal readout</strong><small>Selects task-relevant history.</small></div></div>
+                <div class="readout-item"><div><strong>Event readout</strong><small>Selects task-relevant text.</small></div></div>
+              </div>
+              <div class="how-arrow" aria-hidden="true"><span>→</span><small>cross-modal fusion</small></div>
+              <div class="how-node shared-g-node">
+                <div class="how-state-icon" aria-hidden="true"><i></i><b>G</b></div>
+                <strong>Grounded state</strong>
+                <small>Represents how this event interacts with this temporal state.</small>
+              </div>
+              <div class="how-arrow" aria-hidden="true"><span>→</span><small>shared decoding basis</small></div>
+              <div class="how-node how-outputs">
+                <div class="how-output"><div><strong>Forecast</strong><small>What happens next?</small></div></div>
+                <div class="how-output"><div><strong>Explanation</strong><small>Which evidence supports it?</small></div></div>
+              </div>
+            </div>
+          </section>
+
+          <div class="training-objectives">
+            <article class="training-objective future-objective reveal">
+              <header class="objective-head"><span class="objective-number">1</span><div><span class="objective-label">Future Grounding</span><h3>Teach <em>G</em> to use the event—not only the historical trend.</h3></div></header>
+              <p>The historical series is held fixed while the event is changed. The state built from the real event should agree with the realized future more strongly than a state built from an incompatible event. This prevents the model from succeeding through trend extrapolation alone.</p>
+              <div class="objective-diagram future-objective-diagram" aria-label="The real event state should be closer to the future than the swapped event state">
+                <div class="objective-row"><span class="fixed-input">same history</span><b>+</b><span class="real-input">real event</span><i>→</i><span class="objective-state">G<sup>+</sup></span><i>→</i><span class="objective-result correct-result">closer to future ✓</span></div>
+                <div class="objective-row"><span class="fixed-input">same history</span><b>+</b><span class="wrong-input">swapped event</span><i>→</i><span class="objective-state muted-objective-state">G<sup>−</sup></span><i>→</i><span class="objective-result wrong-result">farther from future</span></div>
+              </div>
+              <p class="objective-rule"><strong>Learning rule:</strong> the matched event–history state must fit the observed future better than the mismatched state.</p>
+            </article>
+
+            <article class="training-objective behavioral-objective reveal">
+              <header class="objective-head"><span class="objective-number">2</span><div><span class="objective-label">Behavioral Grounding</span><h3>Teach the explanation to cite evidence that genuinely controls the forecast.</h3></div></header>
+              <p>The evidence selected by the explanation becomes an intervention target. Retaining that evidence should preserve the forecast, removing important evidence should change it, and adding irrelevant context should leave it stable. This turns explanation faithfulness into a behavioral training signal.</p>
+              <div class="objective-diagram intervention-rules">
+                <div class="intervention-rule"><span class="intervention-icon keep-icon">A+B</span><div><strong>Retain cited evidence</strong><small>The prediction should stay close to the full-input prediction.</small></div><b class="expected-behavior stable-behavior">stable ≈</b></div>
+                <div class="intervention-rule"><span class="intervention-icon remove-icon">A+B</span><div><strong>Remove cited evidence</strong><small>The prediction should change if the evidence was truly important.</small></div><b class="expected-behavior change-behavior">change ↕</b></div>
+                <div class="intervention-rule"><span class="intervention-icon add-icon">+ C</span><div><strong>Add irrelevant evidence</strong><small>The prediction should ignore context that has no predictive role.</small></div><b class="expected-behavior stable-behavior">stable ≈</b></div>
+              </div>
+              <p class="objective-rule"><strong>Learning rule:</strong> cited evidence should be sufficient, necessary, and selective.</p>
+            </article>
+          </div>
+
+        </div>
+
+        <figure class="paper-figure method-figure reveal">
+          <img src="assets/method.png" alt="DualGround-TS architecture: temporal and textual evidence readouts feed a shared grounded state, with future-consistency and behavioral-grounding objectives used during training.">
+          <figcaption><span>Figure 2</span> Complete DualGround-TS architecture and training objectives.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section soft" id="results">
+      <div class="shell">
+        <div class="section-heading reveal">
+          <p class="eyebrow">03 · Does it work?</p>
+          <h2>Evaluation from controlled diagnostics to real-world forecasting.</h2>
+          <p>The final page will report both task performance and grounding behavior.</p>
+        </div>
+
+        <div class="validation-path">
+          <article class="validation-stage controlled-stage reveal">
+            <div class="validation-index"><span>1</span><small>Controlled</small></div>
+            <div class="validation-copy">
+              <span class="validation-dataset">TimeLitmus</span>
+              <h3>Does the mechanism behave correctly when we control what changes?</h3>
+              <p>Controlled tests of history, event, and cited evidence.</p>
+            </div>
+            <div class="validation-details">
+              <div><span>Change the history or event</span><strong>The forecast should respond consistently.</strong></div>
+              <div><span>Swap matched and mismatched pairs</span><strong>The real pair should fit the future better.</strong></div>
+              <div><span>Intervene on cited evidence</span><strong>Retain, remove, and irrelevant tests should behave as intended.</strong></div>
+            </div>
+          </article>
+
+          <div class="validation-arrow reveal" aria-hidden="true"><span>↓</span><small>If the mechanism works under control, test whether it transfers.</small></div>
+
+          <article class="validation-stage transfer-stage reveal">
+            <div class="validation-index"><span>2</span><small>Transfer</small></div>
+            <div class="validation-copy">
+              <span class="validation-dataset">Context is Key</span>
+              <h3>Does grounded temporal–language reasoning transfer to a new contextual forecasting task?</h3>
+              <p>Zero-shot transfer to contextual forecasting.</p>
+            </div>
+            <div class="validation-details compact-details">
+              <div><span>What it tests</span><strong>Zero-shot contextual transfer</strong></div>
+              <div><span>Why it matters</span><strong>The method should learn a reusable integration principle, not a TimeLitmus-specific trick.</strong></div>
+            </div>
+          </article>
+
+          <div class="validation-arrow reveal" aria-hidden="true"><span>↓</span><small>If it transfers, test whether it holds across real domains.</small></div>
+
+          <article class="validation-stage domain-stage reveal">
+            <div class="validation-index"><span>3</span><small>Scale</small></div>
+            <div class="validation-copy">
+              <span class="validation-dataset">Time-MMD</span>
+              <h3>Does the approach remain useful under supervised adaptation across heterogeneous domains?</h3>
+              <p>Supervised adaptation across nine domains.</p>
+            </div>
+            <div class="validation-details compact-details">
+              <div><span>What it tests</span><strong>Multi-domain forecasting performance</strong></div>
+              <div><span>Why it matters</span><strong>Grounding should remain useful outside a controlled diagnostic setting.</strong></div>
+            </div>
+          </article>
+        </div>
+
+        <div class="success-criteria reveal">
+          <div class="criteria-intro">
+            <span class="criteria-label">What counts as success?</span>
+            <h3>The model should be accurate for the right behavioral reasons.</h3>
+            <p>The reported evaluation combines task performance with tests derived directly from the two grounding objectives.</p>
+          </div>
+          <div class="criteria-grid">
+            <div><strong>Forecast quality</strong><small>Competitive task performance.</small></div>
+            <div><strong>Counterfactual sensitivity</strong><small>Correct responses to history or event changes.</small></div>
+            <div><strong>Evidence behavior</strong><small>Expected behavior under evidence interventions.</small></div>
+            <div><strong>Irrelevant invariance</strong><small>Stability under non-predictive context.</small></div>
+          </div>
+        </div>
+
+        <div class="results-placeholder reveal" aria-labelledby="results-table-title">
+          <div class="results-placeholder-head">
+            <div><h3 id="results-table-title">Experimental results</h3></div>
+          </div>
+
+          <div class="results-tables">
+            <div class="table-block table-wide">
+              <div class="table-title"><strong>TimeLitmus</strong></div>
+              <div class="table-scroll">
+                <table>
+                  <thead>
+                    <tr><th rowspan="2">Model</th><th colspan="4">Prediction</th><th colspan="2">Explanation</th></tr>
+                    <tr><th>Nat.</th><th>S-CF</th><th>E-CF</th><th>HPC</th><th>E-F1</th><th>CSDR</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><th>Base Model</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><th>Ordinary Fusion</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr class="highlight-row"><th>DualGround-TS</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="table-block">
+              <div class="table-title"><strong>Context is Key</strong></div>
+              <div class="table-scroll">
+                <table>
+                  <thead><tr><th>Method</th><th>Official Metric</th></tr></thead>
+                  <tbody>
+                    <tr><th>Base Model</th><td></td></tr>
+                    <tr class="highlight-row"><th>DualGround-TS</th><td></td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="table-block">
+              <div class="table-title"><strong>Time-MMD</strong></div>
+              <div class="table-scroll">
+                <table>
+                  <thead><tr><th>Method</th><th>Avg.</th><th>#Wins</th></tr></thead>
+                  <tbody>
+                    <tr><th>Base Model</th><td></td><td></td></tr>
+                    <tr><th>Ordinary Fusion</th><td></td><td></td></tr>
+                    <tr class="highlight-row"><th>DualGround-TS</th><td></td><td></td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="table-block table-wide">
+              <div class="table-title"><strong>Evidence quality and behavioral support</strong></div>
+              <div class="table-scroll">
+                <table>
+                  <thead>
+                    <tr><th rowspan="2">Variant</th><th colspan="1">Evidence</th><th colspan="3">Behavioral Support</th></tr>
+                    <tr><th>F1</th><th>Suff.</th><th>Comp.</th><th>CSDR</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><th>Ordinary Fusion</th><td></td><td></td><td></td><td></td></tr>
+                    <tr><th>Shared State</th><td></td><td></td><td></td><td></td></tr>
+                    <tr><th>Shared Path</th><td></td><td></td><td></td><td></td></tr>
+                    <tr class="highlight-row"><th>DualGround-TS</th><td></td><td></td><td></td><td></td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="section" id="examples">
+      <div class="shell">
+        <div class="section-heading reveal">
+          <p class="eyebrow">04 · Examples</p>
+          <h2>See what “grounded” means in behavior.</h2>
+          <p>These interactive sketches follow the paper’s motivating cases. Switch the state or the intervention and watch what a grounded predictor is expected to do.</p>
+        </div>
+
+        <div class="example-grid">
+          <article class="interactive-card reveal" data-state-example>
+            <div class="interactive-head">
+              <span class="example-number">Example 1</span>
+              <h3>Same event, different temporal state</h3>
+              <p>Shared event: <strong>policy rate cut announced</strong></p>
+            </div>
+            <div class="segmented" role="group" aria-label="Select temporal state">
+              <button class="active" type="button" data-state="weak" aria-pressed="true">Weak macro state</button>
+              <button type="button" data-state="hot" aria-pressed="false">Overheated state</button>
+            </div>
+            <div class="example-stage">
+              <div>
+                <span class="stage-label">Historical series</span>
+                <svg class="large-spark blue" viewBox="0 0 260 96" role="img" aria-label="Selected historical state">
+                  <polyline data-state-line points="4,54 22,43 40,60 59,36 78,48 99,39 119,55 139,45 159,61 180,35 203,43 227,29 255,36"/>
+                </svg>
+              </div>
+              <div class="stage-event"><span>NEWS</span><strong>Rate cut</strong></div>
+              <div class="stage-result positive" data-state-result>
+                <span class="stage-label">Prediction</span>
+                <strong>Market ↑</strong>
+                <p data-state-copy>The event is compatible with a weak macro state and supports an upward response.</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="interactive-card reveal" data-evidence-example>
+            <div class="interactive-head">
+              <span class="example-number">Example 2</span>
+              <h3>Intervene on cited evidence</h3>
+              <p>Claimed evidence: <strong>weak macro state + policy rate cut</strong></p>
+            </div>
+            <div class="segmented four" role="group" aria-label="Select evidence intervention">
+              <button class="active" type="button" data-mode="full" aria-pressed="true">Full input</button>
+              <button type="button" data-mode="retain" aria-pressed="false">Retain</button>
+              <button type="button" data-mode="remove" aria-pressed="false">Remove</button>
+              <button type="button" data-mode="irrelevant" aria-pressed="false">Irrelevant</button>
+            </div>
+            <div class="evidence-stage">
+              <div class="evidence-input" data-evidence-input>
+                <span class="chip series-chip">temporal evidence</span>
+                <span class="chip event-chip">textual evidence</span>
+              </div>
+              <span class="evidence-arrow" aria-hidden="true">→</span>
+              <div class="behavior-output supported" data-behavior-output>
+                <span class="behavior-mark">✓</span>
+                <div><strong>Original prediction</strong><p data-behavior-copy>Full evidence produces the reference prediction and explanation.</p></div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section soft" id="resources">
+      <div class="shell">
+        <div class="section-heading reveal">
+          <p class="eyebrow">05 · Resources</p>
+          <h2>Project resources.</h2>
+        </div>
+
+        <div class="resource-grid">
+          <button class="resource-card resource-placeholder reveal" type="button" disabled>
+            <div><h3>Paper</h3><p>Manuscript and supplementary material.</p></div>
+          </button>
+          <button class="resource-card resource-placeholder reveal" type="button" disabled>
+            <div><h3>Dataset</h3><p>Benchmarks and prepared evaluation data.</p></div>
+          </button>
+          <button class="resource-card resource-placeholder reveal" type="button" disabled>
+            <div><h3>Code</h3><p>Training, evaluation, and intervention pipeline.</p></div>
+          </button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="shell footer-inner">
+      <div><strong>DualGround-TS</strong><p>Ground the prediction. Ground the explanation.</p></div>
+      <p>Research preview · manuscript under double-blind review</p>
+    </div>
+  </footer>
+</body>
+</html>
