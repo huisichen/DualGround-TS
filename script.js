@@ -18,20 +18,30 @@ const stateExample = document.querySelector('[data-state-example]');
 if (stateExample) {
   const buttons = stateExample.querySelectorAll('[data-state]');
   const line = stateExample.querySelector('[data-state-line]');
+  const forecast = stateExample.querySelector('[data-state-forecast]');
+  const nowDot = stateExample.querySelector('[data-state-dot]');
+  const chart = stateExample.querySelector('.market-spark');
+  const price = stateExample.querySelector('[data-state-price]');
+  const change = stateExample.querySelector('[data-state-change]');
   const result = stateExample.querySelector('[data-state-result]');
+  const resultChange = stateExample.querySelector('[data-state-result-change]');
   const copy = stateExample.querySelector('[data-state-copy]');
 
   const stateData = {
     weak: {
-      points: '4,76 27,71 50,74 73,65 96,58 119,62 142,52 165,44 188,47 211,35 234,39 257,21',
+      points: '28,85 44,79 60,82 76,72 92,66 108,70 124,60 140,52 156,56 172,43 188,47 204,30',
+      forecast: '204,30 226,27 248,20 274,13', dotY: '30', price: '104.2', change: '+2.4%',
       result: 'Market ↑',
-      copy: 'The event is compatible with a weak macro state and supports an upward response.',
+      copy: 'Rate cut after weak state.',
+      aria: 'Weak macro market history followed by a 2.4 percent upward forecast after the event.',
       tone: 'positive'
     },
     hot: {
-      points: '4,20 27,25 50,22 73,32 96,41 119,37 142,49 165,56 188,51 211,66 234,63 257,79',
+      points: '28,30 44,35 60,32 76,42 92,51 108,47 124,59 140,66 156,61 172,76 188,73 204,88',
+      forecast: '204,88 226,92 248,100 274,108', dotY: '88', price: '98.6', change: '−2.1%',
       result: 'Market ↓',
-      copy: 'Under an overheated state, the same event implies a different event-conditioned response.',
+      copy: 'Same cut, opposite response.',
+      aria: 'Overheated market history followed by a 2.1 percent downward forecast after the event.',
       tone: 'negative'
     }
   };
@@ -43,10 +53,18 @@ if (stateExample) {
     });
     const next = stateData[button.dataset.state];
     line.setAttribute('points', next.points);
-    line.closest('svg').style.color = next.tone === 'positive' ? 'var(--blue)' : 'var(--red)';
+    forecast.setAttribute('points', next.forecast);
+    nowDot.setAttribute('cy', next.dotY);
+    chart.classList.toggle('negative-history', next.tone === 'negative');
+    chart.setAttribute('aria-label', next.aria);
+    forecast.classList.toggle('positive-line', next.tone === 'positive');
+    forecast.classList.toggle('negative-line', next.tone === 'negative');
+    price.textContent = next.price;
+    change.textContent = next.change;
     result.classList.remove('positive', 'negative');
     result.classList.add(next.tone);
     result.querySelector('strong').textContent = next.result;
+    resultChange.textContent = next.change;
     copy.textContent = next.copy;
   }));
 }
@@ -62,36 +80,36 @@ if (evidenceExample) {
   const mark = output.querySelector('.behavior-mark');
 
   const baseTemporal = [
-    ['Rising Peaks', 'series-chip'],
-    ['Stable Overnight', 'series-chip'],
-    ['Heat Response', 'series-chip']
+    ['Price Breakout', 'series-chip'],
+    ['Volume Surge', 'series-chip'],
+    ['Low Volatility', 'series-chip']
   ];
   const baseTextual = [
-    ['Heat Alert', 'event-chip'],
-    ['Full Production', 'event-chip'],
-    ['App Update', 'event-chip']
+    ['Earnings Beat', 'event-chip'],
+    ['Guidance Raised', 'event-chip'],
+    ['Dividend Held', 'event-chip']
   ];
 
   const evidenceData = {
     full: {
       temporal: baseTemporal,
       textual: baseTextual,
-      tone: 'supported', mark: '✓', prediction: 'Increase', confidence: '78%', status: 'Original'
+      tone: 'supported', mark: '↑', prediction: 'Rise', confidence: '78%', status: 'Original'
     },
     retain: {
-      temporal: [['Rising Peaks', 'series-chip'], ['Stable Overnight', 'series-chip muted-chip'], ['Heat Response', 'series-chip']],
-      textual: [['Heat Alert', 'event-chip'], ['Full Production', 'event-chip'], ['App Update', 'event-chip muted-chip']],
-      tone: 'supported', mark: '≈', prediction: 'Increase', confidence: '75%', status: 'Preserved'
+      temporal: [['Price Breakout', 'series-chip'], ['Volume Surge', 'series-chip'], ['Low Volatility', 'series-chip muted-chip']],
+      textual: [['Earnings Beat', 'event-chip'], ['Guidance Raised', 'event-chip'], ['Dividend Held', 'event-chip muted-chip']],
+      tone: 'supported', mark: '↑', prediction: 'Rise', confidence: '75%', status: 'Preserved'
     },
     remove: {
-      temporal: [['Rising Peaks', 'series-chip muted-chip'], ['Stable Overnight', 'series-chip'], ['Heat Response', 'series-chip muted-chip']],
-      textual: [['Heat Alert', 'event-chip muted-chip'], ['Full Production', 'event-chip muted-chip'], ['App Update', 'event-chip']],
-      tone: 'changed', mark: '↘', prediction: 'Stable', confidence: '61%', status: 'Changed'
+      temporal: [['Price Breakout', 'series-chip muted-chip'], ['Volume Surge', 'series-chip muted-chip'], ['Low Volatility', 'series-chip']],
+      textual: [['Earnings Beat', 'event-chip muted-chip'], ['Guidance Raised', 'event-chip muted-chip'], ['Dividend Held', 'event-chip']],
+      tone: 'changed', mark: '→', prediction: 'Flat', confidence: '61%', status: 'Changed'
     },
     irrelevant: {
-      temporal: [...baseTemporal, ['App Use ↑', 'irrelevant-chip']],
-      textual: [...baseTextual, ['UI Update', 'irrelevant-chip']],
-      tone: 'invariant', mark: '≈', prediction: 'Increase', confidence: '77%', status: 'Unaffected'
+      temporal: [...baseTemporal, ['Web Traffic ↑', 'irrelevant-chip']],
+      textual: [...baseTextual, ['Logo Change', 'irrelevant-chip']],
+      tone: 'invariant', mark: '↑', prediction: 'Rise', confidence: '77%', status: 'Unaffected'
     }
   };
 
@@ -127,18 +145,26 @@ const eventExample = document.querySelector('[data-event-example]');
 if (eventExample) {
   const buttons = eventExample.querySelectorAll('[data-event]');
   const eventLabel = eventExample.querySelector('[data-event-label]');
+  const forecast = eventExample.querySelector('[data-event-forecast]');
+  const chart = eventExample.querySelector('.market-spark');
+  const change = eventExample.querySelector('[data-event-change]');
   const result = eventExample.querySelector('[data-event-result]');
   const resultLabel = result.querySelector('strong');
+  const resultChange = eventExample.querySelector('[data-event-result-change]');
   const copy = eventExample.querySelector('[data-event-copy]');
 
   const eventData = {
     cut: {
-      event: 'Rate cut', result: 'Market ↑', tone: 'positive',
-      copy: 'The same history leads upward when paired with a rate cut.'
+      event: 'Rate cut', result: 'Market ↑', tone: 'positive', change: '+2.4%',
+      forecast: '204,30 226,27 248,20 274,13',
+      copy: 'Rate cut after the fixed history.',
+      aria: 'Fixed market history followed by a 2.4 percent upward forecast after a rate cut.'
     },
     hike: {
-      event: 'Rate hike', result: 'Market ↓', tone: 'negative',
-      copy: 'The same history leads downward when paired with a rate hike.'
+      event: 'Rate hike', result: 'Market ↓', tone: 'negative', change: '−2.0%',
+      forecast: '204,30 226,38 248,49 274,60',
+      copy: 'Rate hike after the fixed history.',
+      aria: 'Fixed market history followed by a 2 percent downward forecast after a rate hike.'
     }
   };
 
@@ -149,9 +175,15 @@ if (eventExample) {
     });
     const next = eventData[button.dataset.event];
     eventLabel.textContent = next.event;
+    forecast.setAttribute('points', next.forecast);
+    forecast.classList.toggle('positive-line', next.tone === 'positive');
+    forecast.classList.toggle('negative-line', next.tone === 'negative');
+    chart.setAttribute('aria-label', next.aria);
+    change.textContent = next.change;
     result.classList.remove('positive', 'negative');
     result.classList.add(next.tone);
     resultLabel.textContent = next.result;
+    resultChange.textContent = next.change;
     copy.textContent = next.copy;
   }));
 }
@@ -159,15 +191,21 @@ if (eventExample) {
 const futureCard = document.querySelector('.future-card');
 if (futureCard) {
   const eventButtons = futureCard.querySelectorAll('[data-future-choice]');
+  const stage = futureCard.querySelector('.future-stage');
   const switcher = futureCard.querySelector('.future-switcher');
   const path = futureCard.querySelector('[data-future-path]');
-  const pathLabel = futureCard.querySelector('[data-future-path-label]');
   const mark = futureCard.querySelector('[data-future-mark]');
   const relation = futureCard.querySelector('[data-future-relation]');
 
   const futureData = {
-    rain: { mode: 'matched', label: 'Matched Event', mark: '✓', relation: 'Closer' },
-    holiday: { mode: 'mismatched', label: 'Mismatched Event', mark: '×', relation: 'Farther' }
+    warning: {
+      mode: 'matched', mark: '✓', relation: 'Closer',
+      aria: 'The profit warning event-history state is closer to the realized NovaTech price drop.'
+    },
+    buyback: {
+      mode: 'mismatched', mark: '×', relation: 'Farther',
+      aria: 'The swapped buyback-plan event-history state is farther from the realized NovaTech price drop.'
+    }
   };
 
   eventButtons.forEach((button) => button.addEventListener('click', () => {
@@ -181,7 +219,7 @@ if (futureCard) {
     switcher.classList.toggle('mismatched-mode', next.mode === 'mismatched');
     path.classList.toggle('matched-path', next.mode === 'matched');
     path.classList.toggle('mismatched-path', next.mode === 'mismatched');
-    pathLabel.textContent = next.label;
+    stage.setAttribute('aria-label', next.aria);
     mark.textContent = next.mark;
     relation.textContent = next.relation;
   }));

@@ -516,17 +516,29 @@
               <button type="button" data-state="hot" aria-pressed="false">Overheated state</button>
             </div>
             <div class="example-stage">
-              <div>
+              <div class="market-chart" data-state-chart>
                 <span class="stage-label">Market Index</span>
-                <svg class="large-spark blue" viewBox="0 0 260 96" role="img" aria-label="Selected historical state">
-                  <polyline data-state-line points="4,76 27,71 50,74 73,65 96,58 119,62 142,52 165,44 188,47 211,35 234,39 257,21"/>
+                <svg class="market-spark blue" viewBox="0 0 300 126" role="img" aria-label="Weak macro market history followed by a 2.4 percent upward forecast after the event">
+                  <g class="market-grid" aria-hidden="true">
+                    <line x1="24" y1="24" x2="280" y2="24"/><line x1="24" y1="58" x2="280" y2="58"/><line x1="24" y1="92" x2="280" y2="92"/>
+                  </g>
+                  <polyline class="market-history-line" data-state-line points="28,85 44,79 60,82 76,72 92,66 108,70 124,60 140,52 156,56 172,43 188,47 204,30"/>
+                  <line class="market-event-line" x1="214" y1="14" x2="214" y2="105"/>
+                  <text class="market-event-label" x="220" y="116">EVENT</text>
+                  <polyline class="market-forecast-line positive-line" data-state-forecast points="204,30 226,27 248,20 274,13"/>
+                  <circle class="market-now-dot" data-state-dot cx="204" cy="30" r="4"/>
                 </svg>
+                <div class="market-chart-meta">
+                  <span>Indexed Price <b data-state-price>104.2</b></span>
+                  <span>Now · Forecast Change <b data-state-change>+2.4%</b></span>
+                </div>
               </div>
               <div class="stage-event"><span>NEWS</span><strong>Rate cut</strong></div>
               <div class="stage-result positive" data-state-result aria-live="polite">
                 <span class="stage-label">Prediction</span>
                 <strong>Market ↑</strong>
-                <p data-state-copy>The event is compatible with a weak macro state and supports an upward response.</p>
+                <span class="result-change" data-state-result-change>+2.4%</span>
+                <p data-state-copy>Rate cut after weak state.</p>
               </div>
             </div>
           </article>
@@ -542,17 +554,29 @@
               <button type="button" data-event="hike" aria-pressed="false">Rate hike</button>
             </div>
             <div class="example-stage">
-              <div>
+              <div class="market-chart" data-event-chart>
                 <span class="stage-label">Market Index</span>
-                <svg class="large-spark blue" viewBox="0 0 260 96" role="img" aria-label="Fixed market index history">
-                  <polyline points="4,76 27,71 50,74 73,65 96,58 119,62 142,52 165,44 188,47 211,35 234,39 257,21"/>
+                <svg class="market-spark blue" viewBox="0 0 300 126" role="img" aria-label="Fixed market history followed by a 2.4 percent upward forecast after a rate cut">
+                  <g class="market-grid" aria-hidden="true">
+                    <line x1="24" y1="24" x2="280" y2="24"/><line x1="24" y1="58" x2="280" y2="58"/><line x1="24" y1="92" x2="280" y2="92"/>
+                  </g>
+                  <polyline class="market-history-line" data-fixed-history-line points="28,85 44,79 60,82 76,72 92,66 108,70 124,60 140,52 156,56 172,43 188,47 204,30"/>
+                  <line class="market-event-line" x1="214" y1="14" x2="214" y2="105"/>
+                  <text class="market-event-label" x="220" y="116">EVENT</text>
+                  <polyline class="market-forecast-line positive-line" data-event-forecast points="204,30 226,27 248,20 274,13"/>
+                  <circle class="market-now-dot" cx="204" cy="30" r="4"/>
                 </svg>
+                <div class="market-chart-meta">
+                  <span>Indexed Price <b>104.2</b></span>
+                  <span>Now · Forecast Change <b data-event-change>+2.4%</b></span>
+                </div>
               </div>
               <div class="stage-event"><span>NEWS</span><strong data-event-label>Rate cut</strong></div>
               <div class="stage-result positive" data-event-result aria-live="polite">
                 <span class="stage-label">Prediction</span>
                 <strong>Market ↑</strong>
-                <p data-event-copy>The same history leads upward when paired with a rate cut.</p>
+                <span class="result-change" data-event-result-change>+2.4%</span>
+                <p data-event-copy>Rate cut after the fixed history.</p>
               </div>
             </div>
           </article>
@@ -561,7 +585,7 @@
             <div class="interactive-head">
               <span class="example-number">Example 3</span>
               <h3>Intervene on cited evidence</h3>
-              <p>Forecast task: <strong>electricity demand</strong></p>
+              <p>Forecast task: <strong>NovaTech stock</strong></p>
             </div>
             <div class="segmented four" role="group" aria-label="Select evidence intervention">
               <button class="active" type="button" data-mode="full" aria-pressed="true">Full input</button>
@@ -573,11 +597,11 @@
               <div class="evidence-input" data-evidence-input aria-live="polite"></div>
               <span class="evidence-arrow" aria-hidden="true">→</span>
               <div class="behavior-output supported" data-behavior-output aria-live="polite">
-                <span class="behavior-mark">✓</span>
+                <span class="behavior-mark">↑</span>
                 <div class="behavior-result">
-                  <span class="stage-label">How Will Demand Change?</span>
+                  <span class="stage-label">How Will Price Move?</span>
                   <div class="behavior-prediction">
-                    <strong data-behavior-prediction>Increase</strong>
+                    <strong data-behavior-prediction>Rise</strong>
                     <span class="behavior-confidence"><small>Confidence</small><b data-behavior-confidence>78%</b></span>
                   </div>
                   <p data-behavior-copy>Original</p>
@@ -590,40 +614,43 @@
             <div class="interactive-head">
               <span class="example-number">Example 4</span>
               <h3>Ground the event in the realized future</h3>
-              <p>Same rental history, <strong>matched versus mismatched event</strong></p>
+              <p>Same NovaTech history, <strong>actual versus swapped event</strong></p>
             </div>
-            <div class="future-stage" aria-label="A heavy-rain event is closer to the realized rental drop than a mismatched public-holiday event">
+            <div class="future-stage" aria-label="A profit warning state is closer to the realized NovaTech price drop than a swapped buyback-plan state">
               <div class="future-history">
                 <span class="stage-label">Same History</span>
-                <svg class="future-spark history-spark" viewBox="0 0 150 58" role="img" aria-label="Stable bike rental history">
+                <svg class="future-spark history-spark" viewBox="0 0 150 58" role="img" aria-label="Stable NovaTech stock history">
                   <polyline points="3,30 20,26 37,31 54,27 71,29 88,25 105,30 122,27 147,29"/>
                 </svg>
-                <strong>Bike Rentals</strong>
-                <small>Demand Stable</small>
+                <strong>NovaTech Stock</strong>
+                <small>Price Stable</small>
               </div>
               <div class="future-switcher matched-mode">
                 <span class="stage-label">Select Event</span>
                 <div class="future-event-tabs" role="group" aria-label="Select an event context">
-                  <button class="active" type="button" data-future-choice="rain" aria-pressed="true">Heavy Rain</button>
-                  <button type="button" data-future-choice="holiday" aria-pressed="false">Public Holiday</button>
+                  <button class="active" type="button" data-future-choice="warning" aria-pressed="true">Profit Warning</button>
+                  <button type="button" data-future-choice="buyback" aria-pressed="false">Buyback Plan</button>
                 </div>
                 <div class="future-path matched-path" data-future-path aria-live="polite">
-                  <span class="future-path-label" data-future-path-label>Matched Event</span>
-                  <div class="future-path-flow">
-                    <span class="future-path-line" aria-hidden="true"></span>
-                    <div class="future-path-result">
-                      <span class="relation-dot" data-future-mark>✓</span>
-                      <strong data-future-relation>Closer</strong>
-                    </div>
+                  <span class="future-path-label">Representation Space</span>
+                  <div class="representation-track" aria-hidden="true">
+                    <span class="representation-axis"></span>
+                    <span class="representation-link"></span>
+                    <span class="representation-state"><i></i><small>State</small></span>
+                    <span class="representation-future"><i></i><small>Future</small></span>
+                  </div>
+                  <div class="future-path-result">
+                    <span class="relation-dot" data-future-mark>✓</span>
+                    <strong data-future-relation>Closer</strong>
                   </div>
                 </div>
               </div>
               <div class="realized-future">
                 <span class="stage-label">Realized Future</span>
-                <svg class="future-spark drop-spark" viewBox="0 0 150 58" role="img" aria-label="Bike rentals drop in the realized future">
+                <svg class="future-spark drop-spark" viewBox="0 0 150 58" role="img" aria-label="NovaTech stock price drops in the realized future">
                   <polyline points="3,12 20,16 37,15 54,23 71,28 88,34 105,39 122,47 147,52"/>
                 </svg>
-                <strong>Rentals Drop ↓</strong>
+                <strong>Price Drop ↓</strong>
               </div>
             </div>
           </article>
