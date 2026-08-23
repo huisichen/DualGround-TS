@@ -200,11 +200,11 @@ if (futureCard) {
   const futureData = {
     warning: {
       mode: 'matched', mark: '✓', relation: 'Closer',
-      aria: 'The profit warning event-history state is closer to the realized NovaTech price drop.'
+      aria: 'The profit warning event-history state is closer to the realized company stock price drop.'
     },
     buyback: {
       mode: 'mismatched', mark: '×', relation: 'Farther',
-      aria: 'The swapped buyback-plan event-history state is farther from the realized NovaTech price drop.'
+      aria: 'The swapped buyback-plan event-history state is farther from the realized company stock price drop.'
     }
   };
 
