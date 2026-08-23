@@ -56,6 +56,7 @@ if (stateExample) {
     forecast.setAttribute('points', next.forecast);
     nowDot.setAttribute('cy', next.dotY);
     chart.classList.toggle('negative-history', next.tone === 'negative');
+    chart.classList.toggle('forecast-negative', next.tone === 'negative');
     chart.setAttribute('aria-label', next.aria);
     forecast.classList.toggle('positive-line', next.tone === 'positive');
     forecast.classList.toggle('negative-line', next.tone === 'negative');
@@ -178,6 +179,7 @@ if (eventExample) {
     forecast.setAttribute('points', next.forecast);
     forecast.classList.toggle('positive-line', next.tone === 'positive');
     forecast.classList.toggle('negative-line', next.tone === 'negative');
+    chart.classList.toggle('forecast-negative', next.tone === 'negative');
     chart.setAttribute('aria-label', next.aria);
     change.textContent = next.change;
     result.classList.remove('positive', 'negative');
