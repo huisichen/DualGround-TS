@@ -181,7 +181,6 @@ if (evidenceExample) {
   const output = evidenceExample.querySelector('[data-behavior-output]');
   const prediction = output.querySelector('[data-behavior-prediction]');
   const confidence = output.querySelector('[data-behavior-confidence]');
-  const outputCopy = evidenceExample.querySelector('[data-behavior-copy]');
   const mark = output.querySelector('.behavior-mark');
 
   const baseTemporal = [
@@ -199,30 +198,37 @@ if (evidenceExample) {
     full: {
       temporal: baseTemporal,
       textual: baseTextual,
-      tone: 'supported', mark: '↑', prediction: 'Rise', confidence: '78%', status: 'Original'
+      tone: 'supported', mark: '↑', prediction: 'Rise', confidence: '78%'
     },
     retain: {
       temporal: [['Price Breakout', 'series-chip important-chip'], ['Volume Surge', 'series-chip important-chip'], ['Low Volatility', 'irrelevant-chip context-chip muted-chip']],
       textual: [['Earnings Beat', 'event-chip important-chip'], ['Guidance Raised', 'event-chip important-chip'], ['Dividend Held', 'irrelevant-chip context-chip muted-chip']],
-      tone: 'supported', mark: '↑', prediction: 'Rise', confidence: '75%', status: 'Preserved'
+      tone: 'supported', mark: '↑', prediction: 'Rise', confidence: '75%'
     },
     remove: {
       temporal: [['Price Breakout', 'series-chip important-chip muted-chip'], ['Volume Surge', 'series-chip important-chip muted-chip'], ['Low Volatility', 'irrelevant-chip context-chip']],
       textual: [['Earnings Beat', 'event-chip important-chip muted-chip'], ['Guidance Raised', 'event-chip important-chip muted-chip'], ['Dividend Held', 'irrelevant-chip context-chip']],
-      tone: 'changed', mark: '→', prediction: 'Flat', confidence: '61%', status: 'Changed'
+      tone: 'changed', mark: '→', prediction: 'Flat', confidence: '61%'
     },
     irrelevant: {
       temporal: [...baseTemporal, ['Web Traffic ↑', 'irrelevant-chip context-chip']],
       textual: [...baseTextual, ['Logo Change', 'irrelevant-chip context-chip']],
-      tone: 'invariant', mark: '↑', prediction: 'Rise', confidence: '77%', status: 'Unaffected'
+      tone: 'invariant', mark: '↑', prediction: 'Rise', confidence: '77%'
     }
   };
 
-  const renderEvidenceGroup = (label, chips) => `
-    <div class="evidence-group">
-      <span class="evidence-group-label">${label}</span>
-      <div class="evidence-chips">${chips.map(([chipLabel, classes]) => `<span class="chip ${classes}">${chipLabel}</span>`).join('')}</div>
-    </div>`;
+  const renderEvidenceGroup = (label, chips) => {
+    const slots = [...chips];
+    while (slots.length < 4) slots.push(['\u00a0', 'placeholder-chip']);
+    return `
+      <div class="evidence-group">
+        <span class="evidence-group-label">${label}</span>
+        <div class="evidence-chips">${slots.map(([chipLabel, classes]) => {
+          const hidden = classes.includes('placeholder-chip') ? ' aria-hidden="true"' : '';
+          return `<span class="chip ${classes}"${hidden}>${chipLabel}</span>`;
+        }).join('')}</div>
+      </div>`;
+  };
 
   const renderEvidence = (next) => {
     input.innerHTML = renderEvidenceGroup('Temporal Evidence', next.temporal) + renderEvidenceGroup('Textual Evidence', next.textual);
@@ -240,7 +246,6 @@ if (evidenceExample) {
     mark.textContent = next.mark;
     prediction.textContent = next.prediction;
     confidence.textContent = next.confidence;
-    outputCopy.textContent = next.status;
   }));
 
   renderEvidence(evidenceData.full);
