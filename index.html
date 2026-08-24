@@ -21,7 +21,6 @@
       <div class="nav-links">
         <a href="#why">Why</a>
         <a href="#how">How</a>
-        <a href="#examples">Examples</a>
         <a href="#results">Does it work</a>
         <a href="#resources">Resources</a>
       </div>
@@ -52,132 +51,6 @@
         <div><span>03 · Ground the explanation</span><strong>Test the cited evidence</strong><p>Keeping, removing, or perturbing evidence should change the forecast in the expected way.</p></div>
       </div>
 
-      <div class="grounding-explainer reveal" aria-label="Why DualGround-TS uses future grounding and behavioral grounding">
-        <div class="explainer-intro">
-          <span class="explainer-kicker">The core idea</span>
-          <h2>A correct forecast is not enough if the model reaches it for the wrong reason.</h2>
-          <p>Imagine predicting whether a stock will rise or fall. The model receives two kinds of evidence: a <strong>historical time series</strong> and a <strong>textual event</strong>. It should reason about them together—but a shortcut model may ignore one source and still guess the right answer.</p>
-        </div>
-
-        <div class="story-row" aria-label="From the intended reasoning process to the shortcut problem and DualGround solution">
-          <article class="story-card intended-card">
-            <span class="story-step">The intended reasoning</span>
-            <div class="story-visual evidence-pair" aria-hidden="true">
-              <div class="micro-icon micro-chart"><i></i><i></i><i></i><i></i><i></i></div>
-              <span>+</span>
-              <div class="micro-icon micro-news"><i></i><i></i><i></i></div>
-            </div>
-            <h3>Use the history and event together</h3>
-            <p>The meaning of an event depends on the state in which it occurs.</p>
-          </article>
-          <div class="story-link" aria-hidden="true"><span>but</span><b>→</b></div>
-          <article class="story-card shortcut-card">
-            <span class="story-step">The shortcut risk</span>
-            <div class="story-visual shortcut-visual" aria-hidden="true">
-              <span class="used-source">history</span>
-              <span class="ignored-source">event</span>
-            </div>
-            <h3>A model can rely on only one source</h3>
-            <p>A correct output alone does not prove that cross-modal reasoning happened.</p>
-          </article>
-          <div class="story-link" aria-hidden="true"><span>so</span><b>→</b></div>
-          <article class="story-card solution-card">
-            <span class="story-step">The DualGround solution</span>
-            <div class="story-visual dualground-visual" aria-hidden="true"><b>D</b><i></i><i></i></div>
-            <h3>Check how the answer was formed</h3>
-            <p>DualGround adds two tests that target different failure modes.</p>
-          </article>
-        </div>
-
-        <div class="grounding-sequence">
-          <article class="grounding-chapter future-chapter">
-            <header class="chapter-head">
-              <span class="chapter-number">1</span>
-              <div>
-                <span class="chapter-label">Future Grounding</span>
-                <h3>First, require the event–history judgment to agree with the realized future.</h3>
-                <p>Agreement with the future is useful, but the model might still succeed by following the historical trend alone. DualGround therefore creates a harder comparison: keep the history fixed and swap only the event.</p>
-              </div>
-            </header>
-
-            <div class="future-comparison" aria-label="The real event paired with the same history should fit the realized future better than a swapped event">
-              <div class="fixed-history">
-                <span class="diagram-caption">Held fixed</span>
-                <div class="micro-icon micro-chart large" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
-                <strong>Same historical series</strong>
-                <small>Identical in both branches</small>
-              </div>
-              <div class="comparison-branches">
-                <div class="comparison-branch real-branch">
-                  <span class="event-token real-event">Real event</span>
-                  <span class="branch-arrow" aria-hidden="true">→</span>
-                  <span class="state-token">Matched state</span>
-                  <span class="branch-arrow" aria-hidden="true">→</span>
-                  <span class="future-result good-fit"><b>✓</b> Closer to the realized future</span>
-                </div>
-                <div class="comparison-branch swapped-branch">
-                  <span class="event-token wrong-event">Swapped event</span>
-                  <span class="branch-arrow" aria-hidden="true">→</span>
-                  <span class="state-token muted-state">Mismatched state</span>
-                  <span class="branch-arrow" aria-hidden="true">→</span>
-                  <span class="future-result weak-fit"><b>×</b> Farther from the realized future</span>
-                </div>
-              </div>
-            </div>
-            <p class="chapter-insight"><strong>Why this matters:</strong> because the historical series is exactly the same in both branches, the model must use the event to make the real pair win.</p>
-          </article>
-
-          <div class="sequence-bridge">
-            <span aria-hidden="true">↓</span>
-            <div><strong>But future agreement still does not guarantee a faithful explanation.</strong><p>The model could make a grounded prediction and then attach a plausible-sounding explanation afterward.</p></div>
-          </div>
-
-          <article class="grounding-chapter behavioral-chapter">
-            <header class="chapter-head">
-              <span class="chapter-number">2</span>
-              <div>
-                <span class="chapter-label">Behavioral Grounding</span>
-                <h3>Then, test whether the explanation names evidence that actually controls the prediction.</h3>
-                <p>Suppose the explanation claims that evidence <strong>A + B</strong> supports the forecast. DualGround intervenes on that evidence and checks whether the model behaves as the claim implies.</p>
-              </div>
-            </header>
-
-            <div class="explanation-claim">
-              <span class="claim-label">Explanation claims</span>
-              <div class="claim-chips"><span>A</span><b>+</b><span>B</span></div>
-              <p>“These are the important factors behind my prediction.”</p>
-            </div>
-
-            <div class="behavior-tests">
-              <article class="behavior-test retain-test">
-                <span class="test-number">Test 1</span>
-                <div class="test-visual" aria-hidden="true"><span>A</span><span>B</span><b>→</b><i>≈</i></div>
-                <h4>Retain A + B</h4>
-                <p>If the cited evidence is sufficient, keeping only it should preserve the prediction.</p>
-                <strong class="test-outcome stable-outcome">Prediction stays similar</strong>
-              </article>
-              <article class="behavior-test remove-test">
-                <span class="test-number">Test 2</span>
-                <div class="test-visual removed-visual" aria-hidden="true"><span>A</span><span>B</span><b>→</b><i>↕</i></div>
-                <h4>Remove A + B</h4>
-                <p>If the cited evidence is important, deleting it should meaningfully affect the prediction.</p>
-                <strong class="test-outcome change-outcome">Prediction changes</strong>
-              </article>
-              <article class="behavior-test irrelevant-test">
-                <span class="test-number">Test 3</span>
-                <div class="test-visual" aria-hidden="true"><span>A</span><span>B</span><span class="extra-chip">C</span><b>→</b><i>≈</i></div>
-                <h4>Add irrelevant C</h4>
-                <p>If C is unrelated, adding it should not make the prediction drift unpredictably.</p>
-                <strong class="test-outcome stable-outcome">Prediction remains stable</strong>
-              </article>
-            </div>
-
-            <p class="chapter-insight"><strong>What a faithful explanation should do:</strong> remain sufficient when retained, matter when removed, and stay selective when irrelevant context is added.</p>
-          </article>
-        </div>
-
-        <p class="explainer-takeaway"><strong>DualGround-TS therefore asks two different questions in sequence:</strong> “Did the model use the event together with the history to reach a future-consistent judgment?” and then, “Does the explanation identify the evidence that truly supports that judgment?”</p>
-      </div>
     </section>
 
     <section class="section soft" id="why">
@@ -243,6 +116,88 @@
                 <p class="case-conclusion"><strong>So trend extrapolation alone is insufficient:</strong> the model must use the event to condition the forecast.</p>
               </section>
             </div>
+
+            <details class="inline-demo cross-modal-inline-demo" open data-collapse-mobile>
+              <summary>
+                <span class="demo-summary-visual cross-preview" aria-hidden="true">
+                  <svg viewBox="0 0 54 34"><polyline class="preview-blue-line" points="3,27 14,21 25,23 36,13 51,7"/><polyline class="preview-red-line" points="3,7 14,12 25,10 36,22 51,28"/></svg>
+                </span>
+                <span class="demo-summary-copy">
+                  <span class="demo-summary-label">Interactive check · Cross-modal dependence</span>
+                  <strong>Change one source at a time.</strong>
+                  <small>First change the history, then hold that history fixed and change the event.</small>
+                </span>
+              </summary>
+              <div class="inline-demo-body paired-examples">
+                <article class="interactive-card paired-card" data-state-example>
+                  <h3 class="sr-only">Same event, different temporal state</h3>
+                  <div class="segmented state-segmented" role="group" aria-label="Select temporal state">
+                    <button class="active" type="button" data-state="weak" aria-pressed="true"><svg viewBox="0 0 42 18" aria-hidden="true"><polyline points="1,16 9,12 17,14 25,8 33,10 41,2"/></svg><span>Weak</span></button>
+                    <button type="button" data-state="hot" aria-pressed="false"><svg viewBox="0 0 42 18" aria-hidden="true"><polyline points="1,2 9,6 17,4 25,10 33,8 41,16"/></svg><span>Overheated</span></button>
+                  </div>
+                  <div class="detailed-market forecast-up" data-state-chart>
+                    <span class="market-name">Market Index</span>
+                    <svg class="market-spark detailed-spark blue" viewBox="0 0 360 190" role="img" aria-label="Weak macro market history followed by a 2.4 percent upward forecast after the event">
+                      <defs>
+                        <linearGradient id="state-history-fill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3158e8" stop-opacity=".18"/><stop offset="1" stop-color="#3158e8" stop-opacity="0"/></linearGradient>
+                        <linearGradient id="state-forecast-fill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1f844b" stop-opacity=".18"/><stop offset="1" stop-color="#1f844b" stop-opacity="0"/></linearGradient>
+                      </defs>
+                        <g class="market-grid" aria-hidden="true">
+                          <line x1="36" y1="32" x2="336" y2="32"/><line x1="36" y1="72" x2="336" y2="72"/><line x1="36" y1="112" x2="336" y2="112"/><line x1="36" y1="152" x2="336" y2="152"/>
+                          <line x1="36" y1="22" x2="36" y2="152"/><line x1="88" y1="22" x2="88" y2="152"/><line x1="140" y1="22" x2="140" y2="152"/><line x1="192" y1="22" x2="192" y2="152"/><line x1="240" y1="22" x2="240" y2="152"/><line x1="288" y1="22" x2="288" y2="152"/><line x1="336" y1="22" x2="336" y2="152"/>
+                        </g>
+                      <rect class="market-forecast-zone" x="240" y="22" width="96" height="130" rx="8"/>
+                      <g class="market-volume" aria-hidden="true"><rect x="42" y="140" width="8" height="12"/><rect x="60" y="135" width="8" height="17"/><rect x="78" y="142" width="8" height="10"/><rect x="96" y="131" width="8" height="21"/><rect x="114" y="137" width="8" height="15"/><rect x="132" y="128" width="8" height="24"/><rect x="150" y="134" width="8" height="18"/><rect x="168" y="125" width="8" height="27"/><rect x="186" y="132" width="8" height="20"/><rect x="204" y="122" width="8" height="30"/><rect x="222" y="129" width="8" height="23"/></g>
+                      <polygon class="market-history-area" data-state-area points="36,120 54,113 72,116 90,105 108,98 126,103 144,91 162,82 180,87 198,70 216,75 240,46 240,152 36,152" fill="url(#state-history-fill)"/>
+                      <polygon class="market-forecast-area" data-state-forecast-area points="240,46 270,41 300,32 334,24 334,152 240,152" fill="url(#state-forecast-fill)"/>
+                      <polyline class="market-history-line" data-state-line points="36,120 54,113 72,116 90,105 108,98 126,103 144,91 162,82 180,87 198,70 216,75 240,46"/>
+                      <line class="market-event-line" x1="240" y1="22" x2="240" y2="152"/>
+                      <polyline class="market-forecast-line positive-line" data-state-forecast points="240,46 270,41 300,32 334,24"/>
+                      <circle class="market-now-dot" data-state-dot cx="240" cy="46" r="4"/>
+                      <circle class="market-end-dot" data-state-end-dot cx="334" cy="24" r="4"/>
+                      <text class="market-scale" x="7" y="35">106</text><text class="market-scale" x="7" y="75">102</text><text class="market-scale" x="10" y="115">98</text><text class="market-scale" x="10" y="155">94</text>
+                      <text class="market-period-label" x="36" y="176">−6D</text><text class="market-period-label" x="135" y="176">−3D</text><text class="market-event-label" x="229" y="176">NOW</text><text class="market-period-label market-forecast-label" x="310" y="176">+3D</text>
+                    </svg>
+                    <div class="chart-event-tag fixed-event"><span>NEWS</span><strong>Rate cut</strong><i aria-hidden="true"></i></div>
+                    <div class="detailed-outcome positive" data-state-outcome aria-live="polite"><strong>+2.4%</strong><span>↑</span></div>
+                  </div>
+                </article>
+
+                <article class="interactive-card paired-card" data-event-example>
+                  <h3 class="sr-only">Same temporal state, different event</h3>
+                  <div class="segmented" role="group" aria-label="Select textual event">
+                    <button class="active" type="button" data-event="cut" aria-pressed="true">Rate cut</button>
+                    <button type="button" data-event="hike" aria-pressed="false">Rate hike</button>
+                  </div>
+                  <div class="detailed-market forecast-up" data-event-chart>
+                    <span class="market-name">Market Index</span>
+                    <svg class="market-spark detailed-spark blue" viewBox="0 0 360 190" role="img" aria-label="Fixed market history followed by a 2.4 percent upward forecast after a rate cut">
+                      <defs>
+                        <linearGradient id="event-history-fill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3158e8" stop-opacity=".18"/><stop offset="1" stop-color="#3158e8" stop-opacity="0"/></linearGradient>
+                        <linearGradient id="event-forecast-fill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1f844b" stop-opacity=".18"/><stop offset="1" stop-color="#1f844b" stop-opacity="0"/></linearGradient>
+                      </defs>
+                        <g class="market-grid" aria-hidden="true">
+                          <line x1="36" y1="32" x2="336" y2="32"/><line x1="36" y1="72" x2="336" y2="72"/><line x1="36" y1="112" x2="336" y2="112"/><line x1="36" y1="152" x2="336" y2="152"/>
+                          <line x1="36" y1="22" x2="36" y2="152"/><line x1="88" y1="22" x2="88" y2="152"/><line x1="140" y1="22" x2="140" y2="152"/><line x1="192" y1="22" x2="192" y2="152"/><line x1="240" y1="22" x2="240" y2="152"/><line x1="288" y1="22" x2="288" y2="152"/><line x1="336" y1="22" x2="336" y2="152"/>
+                        </g>
+                      <rect class="market-forecast-zone" x="240" y="22" width="96" height="130" rx="8"/>
+                      <g class="market-volume" aria-hidden="true"><rect x="42" y="140" width="8" height="12"/><rect x="60" y="135" width="8" height="17"/><rect x="78" y="142" width="8" height="10"/><rect x="96" y="131" width="8" height="21"/><rect x="114" y="137" width="8" height="15"/><rect x="132" y="128" width="8" height="24"/><rect x="150" y="134" width="8" height="18"/><rect x="168" y="125" width="8" height="27"/><rect x="186" y="132" width="8" height="20"/><rect x="204" y="122" width="8" height="30"/><rect x="222" y="129" width="8" height="23"/></g>
+                      <polygon class="market-history-area" points="36,120 54,113 72,116 90,105 108,98 126,103 144,91 162,82 180,87 198,70 216,75 240,46 240,152 36,152" fill="url(#event-history-fill)"/>
+                      <polygon class="market-forecast-area" data-event-forecast-area points="240,46 270,41 300,32 334,24 334,152 240,152" fill="url(#event-forecast-fill)"/>
+                      <polyline class="market-history-line" data-fixed-history-line points="36,120 54,113 72,116 90,105 108,98 126,103 144,91 162,82 180,87 198,70 216,75 240,46"/>
+                      <line class="market-event-line" x1="240" y1="22" x2="240" y2="152"/>
+                      <polyline class="market-forecast-line positive-line" data-event-forecast points="240,46 270,41 300,32 334,24"/>
+                      <circle class="market-now-dot" cx="240" cy="46" r="4"/>
+                      <circle class="market-end-dot" data-event-end-dot cx="334" cy="24" r="4"/>
+                      <text class="market-scale" x="7" y="35">106</text><text class="market-scale" x="7" y="75">102</text><text class="market-scale" x="10" y="115">98</text><text class="market-scale" x="10" y="155">94</text>
+                      <text class="market-period-label" x="36" y="176">−6D</text><text class="market-period-label" x="135" y="176">−3D</text><text class="market-event-label" x="229" y="176">NOW</text><text class="market-period-label market-forecast-label" x="310" y="176">+3D</text>
+                    </svg>
+                    <div class="chart-event-tag"><span>NEWS</span><strong data-event-label>Rate cut</strong></div>
+                    <div class="detailed-outcome positive" data-event-outcome aria-live="polite"><strong>+2.4%</strong><span>↑</span></div>
+                  </div>
+                </article>
+              </div>
+            </details>
           </article>
 
           <article class="why-panel explanation-panel reveal">
@@ -325,18 +280,18 @@
 
           <div class="training-objectives">
             <article class="training-objective future-objective reveal">
-              <header class="objective-head"><span class="objective-number">1</span><div><span class="objective-label">Future Grounding</span><h3>Teach <em>G</em> to use the event—not only the historical trend.</h3></div></header>
-              <p>The historical series is held fixed while the event is changed. The state built from the real event should agree with the realized future more strongly than a state built from an incompatible event. This prevents the model from succeeding through trend extrapolation alone.</p>
+              <header class="objective-head"><span class="objective-number">1</span><div><span class="objective-label">Future Grounding</span><h3>Ground <em>G</em> in the event—not only the trend.</h3></div></header>
+              <p>Hold history fixed and swap the event. The real event–history state should align with the realized future more closely than an incompatible one.</p>
               <div class="objective-diagram future-objective-diagram" aria-label="The real event state should be closer to the future than the swapped event state">
                 <div class="objective-row"><span class="fixed-input">same history</span><b>+</b><span class="real-input">real event</span><i>→</i><span class="objective-state">G<sup>+</sup></span><i>→</i><span class="objective-result correct-result">closer to future ✓</span></div>
                 <div class="objective-row"><span class="fixed-input">same history</span><b>+</b><span class="wrong-input">swapped event</span><i>→</i><span class="objective-state muted-objective-state">G<sup>−</sup></span><i>→</i><span class="objective-result wrong-result">farther from future</span></div>
               </div>
-              <p class="objective-rule"><strong>Learning rule:</strong> the matched event–history state must fit the observed future better than the mismatched state.</p>
+              <p class="objective-rule"><strong>Learning rule:</strong> matched state closer than mismatched state.</p>
             </article>
 
             <article class="training-objective behavioral-objective reveal">
-              <header class="objective-head"><span class="objective-number">2</span><div><span class="objective-label">Behavioral Grounding</span><h3>Teach the explanation to cite evidence that genuinely controls the forecast.</h3></div></header>
-              <p>The evidence selected by the explanation becomes an intervention target. Retaining that evidence should preserve the forecast, removing important evidence should change it, and adding irrelevant context should leave it stable. This turns explanation faithfulness into a behavioral training signal.</p>
+              <header class="objective-head"><span class="objective-number">2</span><div><span class="objective-label">Behavioral Grounding</span><h3>Ground explanations in evidence that controls the forecast.</h3></div></header>
+              <p>Intervene on cited evidence: retaining it should preserve the forecast, removing it should change the forecast, and irrelevant context should not.</p>
               <div class="objective-diagram intervention-rules">
                 <div class="intervention-rule"><span class="intervention-icon keep-icon">A+B</span><div><strong>Retain cited evidence</strong><small>The prediction should stay close to the full-input prediction.</small></div><b class="expected-behavior stable-behavior">stable ≈</b></div>
                 <div class="intervention-rule"><span class="intervention-icon remove-icon">A+B</span><div><strong>Remove cited evidence</strong><small>The prediction should change if the evidence was truly important.</small></div><b class="expected-behavior change-behavior">change ↕</b></div>
@@ -344,6 +299,92 @@
               </div>
               <p class="objective-rule"><strong>Learning rule:</strong> cited evidence should be sufficient, necessary, and selective.</p>
             </article>
+
+            <div class="inline-demo objective-inline-demo future-inline-demo">
+              <button class="demo-toggle" type="button" aria-expanded="false" aria-controls="future-grounding-demo">
+                <span class="demo-summary-visual future-preview" aria-hidden="true"><i></i><i></i><b></b></span>
+                <span class="demo-summary-copy">
+                  <span class="demo-summary-label">Interactive check · Future grounding</span>
+                  <strong>Compare the actual event with a swapped event.</strong>
+                  <small>The history and realized future stay fixed while the event–history state moves.</small>
+                </span>
+              </button>
+              <div class="inline-demo-body" id="future-grounding-demo" hidden>
+                <div class="future-card">
+                  <div class="future-stage" aria-label="A profit warning state is closer to the realized price drop than a swapped buyback-plan state">
+                    <div class="future-history">
+                      <span class="stage-label">Same History</span>
+                      <svg class="future-spark history-spark" viewBox="0 0 150 58" role="img" aria-label="Stable company stock history">
+                        <polyline points="3,30 20,26 37,31 54,27 71,29 88,25 105,30 122,27 147,29"/>
+                      </svg>
+                      <strong>Company Stock</strong>
+                      <small>Price Stable</small>
+                    </div>
+                    <div class="future-switcher matched-mode">
+                      <span class="stage-label">Select Event</span>
+                      <div class="future-event-tabs" role="group" aria-label="Select an event context">
+                        <button class="active" type="button" data-future-choice="warning" aria-pressed="true">Profit Warning</button>
+                        <button type="button" data-future-choice="buyback" aria-pressed="false">Buyback Plan</button>
+                      </div>
+                      <div class="future-path matched-path" data-future-path aria-live="polite">
+                        <span class="future-path-label">Representation Space</span>
+                        <div class="representation-track" aria-hidden="true">
+                          <span class="representation-axis"></span>
+                          <span class="representation-link"></span>
+                          <span class="representation-state"><i></i><small>State</small></span>
+                          <span class="representation-future"><i></i><small>Future</small></span>
+                        </div>
+                        <div class="future-path-result">
+                          <span class="relation-dot" data-future-mark>✓</span>
+                          <strong data-future-relation>Closer</strong>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="realized-future">
+                      <span class="stage-label">Realized Future</span>
+                      <svg class="future-spark drop-spark" viewBox="0 0 150 58" role="img" aria-label="Company stock price drops in the realized future">
+                        <polyline points="3,12 20,16 37,15 54,23 71,28 88,34 105,39 122,47 147,52"/>
+                      </svg>
+                      <strong>Price Drop ↓</strong>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="inline-demo objective-inline-demo behavioral-inline-demo">
+              <button class="demo-toggle" type="button" aria-expanded="false" aria-controls="behavioral-grounding-demo">
+                <span class="demo-summary-visual evidence-preview" aria-hidden="true"><i></i><i></i><i></i></span>
+                <span class="demo-summary-copy">
+                  <span class="demo-summary-label">Interactive check · Behavioral grounding</span>
+                  <strong>Intervene on the evidence cited by the explanation.</strong>
+                  <small>Retain, remove, or distract the evidence and inspect the forecast response.</small>
+                </span>
+              </button>
+              <div class="inline-demo-body" id="behavioral-grounding-demo" data-evidence-example hidden>
+                <div class="segmented four" role="group" aria-label="Select evidence intervention">
+                  <button class="active" type="button" data-mode="full" aria-pressed="true">Full input</button>
+                  <button type="button" data-mode="retain" aria-pressed="false">Retain</button>
+                  <button type="button" data-mode="remove" aria-pressed="false">Remove</button>
+                  <button type="button" data-mode="irrelevant" aria-pressed="false">Irrelevant</button>
+                </div>
+                <div class="evidence-stage">
+                  <div class="evidence-input" data-evidence-input aria-live="polite"></div>
+                  <span class="evidence-arrow" aria-hidden="true">→</span>
+                  <div class="behavior-output supported" data-behavior-output aria-live="polite">
+                    <span class="behavior-mark">↑</span>
+                    <div class="behavior-result">
+                      <span class="stage-label">How Will Price Move?</span>
+                      <div class="behavior-prediction">
+                        <strong data-behavior-prediction>Rise</strong>
+                        <span class="behavior-confidence"><small>Confidence</small><b data-behavior-confidence>78%</b></span>
+                      </div>
+                      <p data-behavior-copy>Original</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
         </div>
@@ -355,194 +396,10 @@
       </div>
     </section>
 
-    <section class="section soft examples-section" id="examples">
-      <div class="shell">
-        <div class="section-heading reveal">
-          <p class="eyebrow">03 · Interactive cases</p>
-          <h2>Put the grounding tests into motion.</h2>
-          <p>One financial setting connects all four cases. Hold one source fixed, change the other, then test whether the cited evidence and the event–history state behave as claimed.</p>
-        </div>
-
-        <div class="example-narrative">
-          <section class="example-cluster reveal" aria-labelledby="counterfactual-cases-title">
-            <header class="cluster-intro">
-              <span class="cluster-kicker">Cross-modal dependence</span>
-              <div>
-                <h3 id="counterfactual-cases-title">Change one source at a time.</h3>
-                <p>The paired views make the two counterfactual tests directly comparable: first change the history, then change the event.</p>
-              </div>
-            </header>
-
-            <div class="paired-examples">
-              <article class="interactive-card paired-card" data-state-example>
-                <div class="interactive-head">
-                  <span class="example-number">Example 1</span>
-                  <h3>Same event, different temporal state</h3>
-                  <p>Shared event: <strong>policy rate cut announced</strong></p>
-                </div>
-                <div class="segmented" role="group" aria-label="Select temporal state">
-                  <button class="active" type="button" data-state="weak" aria-pressed="true">Weak macro state</button>
-                  <button type="button" data-state="hot" aria-pressed="false">Overheated state</button>
-                </div>
-                <div class="example-stage">
-                  <div class="market-chart" data-state-chart>
-                    <span class="stage-label">Market Index</span>
-                    <svg class="market-spark blue" viewBox="0 0 300 126" role="img" aria-label="Weak macro market history followed by a 2.4 percent upward forecast after the event">
-                      <g class="market-grid" aria-hidden="true">
-                        <line x1="24" y1="24" x2="280" y2="24"/><line x1="24" y1="58" x2="280" y2="58"/><line x1="24" y1="92" x2="280" y2="92"/>
-                      </g>
-                      <rect class="market-forecast-zone" x="214" y="14" width="66" height="91" rx="8"/>
-                      <polyline class="market-history-line" data-state-line points="28,85 44,79 60,82 76,72 92,66 108,70 124,60 140,52 156,56 172,43 188,47 204,30"/>
-                      <line class="market-event-line" x1="214" y1="14" x2="214" y2="105"/>
-                      <text class="market-period-label" x="28" y="117">HISTORY</text>
-                      <text class="market-period-label market-forecast-label" x="232" y="117">FORECAST</text>
-                      <text class="market-event-label" x="203" y="11">NOW</text>
-                      <polyline class="market-forecast-line positive-line" data-state-forecast points="204,30 226,27 248,20 274,13"/>
-                      <circle class="market-now-dot" data-state-dot cx="204" cy="30" r="4"/>
-                    </svg>
-                    <div class="market-chart-meta">
-                      <span>Indexed Price <b data-state-price>104.2</b></span>
-                      <span>Forecast Change <b data-state-change>+2.4%</b></span>
-                    </div>
-                  </div>
-                  <div class="stage-event"><span>NEWS</span><strong>Rate cut</strong></div>
-                  <div class="stage-result positive" data-state-result aria-live="polite">
-                    <span class="stage-label">Prediction</span>
-                    <strong>Market ↑</strong>
-                    <span class="result-change" data-state-result-change>+2.4%</span>
-                    <p data-state-copy>Rate cut after weak state.</p>
-                  </div>
-                </div>
-              </article>
-
-              <article class="interactive-card paired-card" data-event-example>
-                <div class="interactive-head">
-                  <span class="example-number">Example 2</span>
-                  <h3>Same temporal state, different event</h3>
-                  <p>Shared history: <strong>weak macro state</strong></p>
-                </div>
-                <div class="segmented" role="group" aria-label="Select textual event">
-                  <button class="active" type="button" data-event="cut" aria-pressed="true">Rate cut</button>
-                  <button type="button" data-event="hike" aria-pressed="false">Rate hike</button>
-                </div>
-                <div class="example-stage">
-                  <div class="market-chart" data-event-chart>
-                    <span class="stage-label">Market Index</span>
-                    <svg class="market-spark blue" viewBox="0 0 300 126" role="img" aria-label="Fixed market history followed by a 2.4 percent upward forecast after a rate cut">
-                      <g class="market-grid" aria-hidden="true">
-                        <line x1="24" y1="24" x2="280" y2="24"/><line x1="24" y1="58" x2="280" y2="58"/><line x1="24" y1="92" x2="280" y2="92"/>
-                      </g>
-                      <rect class="market-forecast-zone" x="214" y="14" width="66" height="91" rx="8"/>
-                      <polyline class="market-history-line" data-fixed-history-line points="28,85 44,79 60,82 76,72 92,66 108,70 124,60 140,52 156,56 172,43 188,47 204,30"/>
-                      <line class="market-event-line" x1="214" y1="14" x2="214" y2="105"/>
-                      <text class="market-period-label" x="28" y="117">HISTORY</text>
-                      <text class="market-period-label market-forecast-label" x="232" y="117">FORECAST</text>
-                      <text class="market-event-label" x="203" y="11">NOW</text>
-                      <polyline class="market-forecast-line positive-line" data-event-forecast points="204,30 226,27 248,20 274,13"/>
-                      <circle class="market-now-dot" cx="204" cy="30" r="4"/>
-                    </svg>
-                    <div class="market-chart-meta">
-                      <span>Indexed Price <b>104.2</b></span>
-                      <span>Forecast Change <b data-event-change>+2.4%</b></span>
-                    </div>
-                  </div>
-                  <div class="stage-event"><span>NEWS</span><strong data-event-label>Rate cut</strong></div>
-                  <div class="stage-result positive" data-event-result aria-live="polite">
-                    <span class="stage-label">Prediction</span>
-                    <strong>Market ↑</strong>
-                    <span class="result-change" data-event-result-change>+2.4%</span>
-                    <p data-event-copy>Rate cut after the fixed history.</p>
-                  </div>
-                </div>
-              </article>
-            </div>
-          </section>
-
-          <article class="interactive-card wide-interactive reveal" data-evidence-example>
-            <div class="interactive-head wide-interactive-head">
-              <span class="example-number">Example 3 · Behavioral grounding</span>
-              <h3>Intervene on cited evidence</h3>
-              <p>For a <strong>company stock</strong> forecast, keep, remove, or distract the evidence named by the explanation.</p>
-            </div>
-            <div class="wide-interaction">
-              <div class="segmented four" role="group" aria-label="Select evidence intervention">
-                <button class="active" type="button" data-mode="full" aria-pressed="true">Full input</button>
-                <button type="button" data-mode="retain" aria-pressed="false">Retain</button>
-                <button type="button" data-mode="remove" aria-pressed="false">Remove</button>
-                <button type="button" data-mode="irrelevant" aria-pressed="false">Irrelevant</button>
-              </div>
-              <div class="evidence-stage">
-                <div class="evidence-input" data-evidence-input aria-live="polite"></div>
-                <span class="evidence-arrow" aria-hidden="true">→</span>
-                <div class="behavior-output supported" data-behavior-output aria-live="polite">
-                  <span class="behavior-mark">↑</span>
-                  <div class="behavior-result">
-                    <span class="stage-label">How Will Price Move?</span>
-                    <div class="behavior-prediction">
-                      <strong data-behavior-prediction>Rise</strong>
-                      <span class="behavior-confidence"><small>Confidence</small><b data-behavior-confidence>78%</b></span>
-                    </div>
-                    <p data-behavior-copy>Original</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </article>
-
-          <article class="interactive-card wide-interactive reveal future-card">
-            <div class="interactive-head wide-interactive-head">
-              <span class="example-number">Example 4 · Future grounding</span>
-              <h3>Ground the event in the realized future</h3>
-              <p>Keep the <strong>same stock history</strong> and compare the actual event with a swapped event.</p>
-            </div>
-            <div class="wide-interaction">
-              <div class="future-stage" aria-label="A profit warning state is closer to the realized price drop than a swapped buyback-plan state">
-                <div class="future-history">
-                  <span class="stage-label">Same History</span>
-                  <svg class="future-spark history-spark" viewBox="0 0 150 58" role="img" aria-label="Stable company stock history">
-                    <polyline points="3,30 20,26 37,31 54,27 71,29 88,25 105,30 122,27 147,29"/>
-                  </svg>
-                  <strong>Company Stock</strong>
-                  <small>Price Stable</small>
-                </div>
-                <div class="future-switcher matched-mode">
-                  <span class="stage-label">Select Event</span>
-                  <div class="future-event-tabs" role="group" aria-label="Select an event context">
-                    <button class="active" type="button" data-future-choice="warning" aria-pressed="true">Profit Warning</button>
-                    <button type="button" data-future-choice="buyback" aria-pressed="false">Buyback Plan</button>
-                  </div>
-                  <div class="future-path matched-path" data-future-path aria-live="polite">
-                    <span class="future-path-label">Representation Space</span>
-                    <div class="representation-track" aria-hidden="true">
-                      <span class="representation-axis"></span>
-                      <span class="representation-link"></span>
-                      <span class="representation-state"><i></i><small>State</small></span>
-                      <span class="representation-future"><i></i><small>Future</small></span>
-                    </div>
-                    <div class="future-path-result">
-                      <span class="relation-dot" data-future-mark>✓</span>
-                      <strong data-future-relation>Closer</strong>
-                    </div>
-                  </div>
-                </div>
-                <div class="realized-future">
-                  <span class="stage-label">Realized Future</span>
-                  <svg class="future-spark drop-spark" viewBox="0 0 150 58" role="img" aria-label="Company stock price drops in the realized future">
-                    <polyline points="3,12 20,16 37,15 54,23 71,28 88,34 105,39 122,47 147,52"/>
-                  </svg>
-                  <strong>Price Drop ↓</strong>
-                </div>
-              </div>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
     <section class="section" id="results">
       <div class="shell">
         <div class="section-heading reveal">
-          <p class="eyebrow">04 · Does it work?</p>
+          <p class="eyebrow">03 · Does it work?</p>
           <h2>Evaluation from controlled diagnostics to real-world forecasting.</h2>
           <p>The final page will report both task performance and grounding behavior.</p>
         </div>
@@ -683,7 +540,7 @@
     <section class="section soft" id="resources">
       <div class="shell">
         <div class="section-heading reveal">
-          <p class="eyebrow">05 · Resources</p>
+          <p class="eyebrow">04 · Resources</p>
           <h2>Project resources.</h2>
         </div>
 
