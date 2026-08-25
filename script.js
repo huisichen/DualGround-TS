@@ -54,6 +54,9 @@ objectiveDemos.forEach((demo) => {
   });
 });
 
+const defaultObjectiveDemo = objectiveDemos.find((demo) => demo.hasAttribute('data-default-open'));
+objectiveDemos.forEach((demo) => setObjectiveDemo(demo, demo === defaultObjectiveDemo, false));
+
 if (window.matchMedia('(max-width: 680px)').matches) {
   document.querySelectorAll('[data-collapse-mobile]').forEach((details) => details.removeAttribute('open'));
 }
@@ -176,79 +179,102 @@ if (stateExample) {
 
 const evidenceExample = document.querySelector('[data-evidence-example]');
 if (evidenceExample) {
-  const buttons = evidenceExample.querySelectorAll('[data-mode]');
   const input = evidenceExample.querySelector('[data-evidence-input]');
-  const output = evidenceExample.querySelector('[data-behavior-output]');
-  const prediction = output.querySelector('[data-behavior-prediction]');
-  const confidence = output.querySelector('[data-behavior-confidence]');
-  const mark = output.querySelector('.behavior-mark');
+  const workbench = evidenceExample.querySelector('.evidence-workbench');
+  const resetButton = evidenceExample.querySelector('[data-evidence-reset]');
+  const chart = evidenceExample.querySelector('[data-behavior-chart]');
+  const spark = evidenceExample.querySelector('[data-behavior-spark]');
+  const forecast = evidenceExample.querySelector('[data-behavior-forecast]');
+  const forecastArea = evidenceExample.querySelector('[data-behavior-forecast-area]');
+  const endDot = evidenceExample.querySelector('[data-behavior-end-dot]');
+  const outcome = evidenceExample.querySelector('[data-behavior-outcome]');
+  const count = evidenceExample.querySelector('[data-evidence-count]');
+  const live = evidenceExample.querySelector('[data-evidence-live]');
 
-  const baseTemporal = [
-    ['Price Breakout', 'series-chip important-chip'],
-    ['Volume Surge', 'series-chip important-chip'],
-    ['Low Volatility', 'irrelevant-chip context-chip']
-  ];
-  const baseTextual = [
-    ['Earnings Beat', 'event-chip important-chip'],
-    ['Guidance Raised', 'event-chip important-chip'],
-    ['Dividend Held', 'irrelevant-chip context-chip']
-  ];
+  const evidenceItems = [
+    { id: 'price-breakout', label: 'Price Breakout', group: 'temporal', classes: 'series-chip important-chip', important: true, initial: true },
+    { id: 'volume-surge', label: 'Volume Surge', group: 'temporal', classes: 'series-chip important-chip', important: true, initial: true },
+    { id: 'low-volatility', label: 'Low Volatility', group: 'temporal', classes: 'irrelevant-chip context-chip', important: false, initial: true },
+    { id: 'web-traffic', label: 'Web Traffic ↑', group: 'temporal', classes: 'irrelevant-chip context-chip', important: false, initial: false, optional: true },
+    { id: 'earnings-beat', label: 'Earnings Beat', group: 'textual', classes: 'event-chip important-chip', important: true, initial: true },
+    { id: 'guidance-raised', label: 'Guidance Raised', group: 'textual', classes: 'event-chip important-chip', important: true, initial: true },
+    { id: 'dividend-held', label: 'Dividend Held', group: 'textual', classes: 'irrelevant-chip context-chip', important: false, initial: true },
+    { id: 'logo-change', label: 'Logo Change', group: 'textual', classes: 'irrelevant-chip context-chip', important: false, initial: false, optional: true }
+  ].map((item) => ({ ...item, active: item.initial }));
 
-  const evidenceData = {
-    full: {
-      temporal: baseTemporal,
-      textual: baseTextual,
-      tone: 'supported', mark: '↑', prediction: 'Rise', confidence: '78%'
-    },
-    retain: {
-      temporal: [['Price Breakout', 'series-chip important-chip'], ['Volume Surge', 'series-chip important-chip'], ['Low Volatility', 'irrelevant-chip context-chip muted-chip']],
-      textual: [['Earnings Beat', 'event-chip important-chip'], ['Guidance Raised', 'event-chip important-chip'], ['Dividend Held', 'irrelevant-chip context-chip muted-chip']],
-      tone: 'supported', mark: '↑', prediction: 'Rise', confidence: '75%'
-    },
-    remove: {
-      temporal: [['Price Breakout', 'series-chip important-chip muted-chip'], ['Volume Surge', 'series-chip important-chip muted-chip'], ['Low Volatility', 'irrelevant-chip context-chip']],
-      textual: [['Earnings Beat', 'event-chip important-chip muted-chip'], ['Guidance Raised', 'event-chip important-chip muted-chip'], ['Dividend Held', 'irrelevant-chip context-chip']],
-      tone: 'changed', mark: '→', prediction: 'Flat', confidence: '61%'
-    },
-    irrelevant: {
-      temporal: [...baseTemporal, ['Web Traffic ↑', 'irrelevant-chip context-chip']],
-      textual: [...baseTextual, ['Logo Change', 'irrelevant-chip context-chip']],
-      tone: 'invariant', mark: '↑', prediction: 'Rise', confidence: '77%'
-    }
+  const renderEvidenceGroup = (label, group, items) => `
+    <div class="evidence-group" role="group" aria-label="${label}">
+      <span class="evidence-group-label">${label}</span>
+      <div class="evidence-chips">${items.filter((item) => item.group === group).map((item) => `
+        <button class="chip evidence-chip ${item.classes}" type="button" data-evidence-id="${item.id}" aria-pressed="${item.active}">
+          <span>${item.label}</span><i class="evidence-chip-state" aria-hidden="true"></i>
+          ${item.id === 'price-breakout' ? '<i class="evidence-tap-cue" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 3.5 19 14l-6.2 1.4 3.2 5.1-3.1 1.9-3.1-5.2L5 21Z"/><path class="tap-rays" d="M3.5 0.8v2.4M0.8 3.5h2.4M1.5 1.5l1.7 1.7"/></svg></i>' : ''}
+        </button>`).join('')}
+      </div>
+    </div>`;
+
+  input.innerHTML = renderEvidenceGroup('Temporal Evidence', 'temporal', evidenceItems) + renderEvidenceGroup('Textual Evidence', 'textual', evidenceItems);
+
+  const syncEvidenceButton = (item) => {
+    const button = input.querySelector(`[data-evidence-id="${item.id}"]`);
+    const state = button.querySelector('.evidence-chip-state');
+    button.classList.toggle('is-unselected', !item.active);
+    button.classList.toggle('is-added', item.active && item.optional);
+    button.setAttribute('aria-pressed', item.active ? 'true' : 'false');
+    button.setAttribute('aria-label', `${item.active ? 'Remove' : item.optional ? 'Add' : 'Restore'} ${item.label} ${item.active ? 'from' : 'to'} the input`);
+    state.textContent = item.active ? '✓' : '+';
   };
 
-  const renderEvidenceGroup = (label, chips) => {
-    const slots = [...chips];
-    while (slots.length < 4) slots.push(['\u00a0', 'placeholder-chip']);
-    return `
-      <div class="evidence-group">
-        <span class="evidence-group-label">${label}</span>
-        <div class="evidence-chips">${slots.map(([chipLabel, classes]) => {
-          const hidden = classes.includes('placeholder-chip') ? ' aria-hidden="true"' : '';
-          return `<span class="chip ${classes}"${hidden}>${chipLabel}</span>`;
-        }).join('')}</div>
-      </div>`;
+  const updateEvidenceForecast = (announcement = '') => {
+    const retainedImportant = evidenceItems.filter((item) => item.important && item.active).length;
+    const activeCount = evidenceItems.filter((item) => item.active).length;
+    const strength = retainedImportant / 4;
+    const full = [64, 54, 40, 28];
+    const flat = [64, 66, 64, 67];
+    const ys = full.map((value, index) => Math.round((flat[index] + (value - flat[index]) * strength) * 10) / 10);
+    const points = `240,${ys[0]} 270,${ys[1]} 300,${ys[2]} 334,${ys[3]}`;
+    const percent = 2.4 * strength;
+    const isFlat = retainedImportant === 0;
+
+    forecast.setAttribute('points', points);
+    forecastArea.setAttribute('points', `${points} 334,152 240,152`);
+    endDot.setAttribute('cy', ys[3]);
+    chart.classList.toggle('forecast-up', !isFlat);
+    chart.classList.toggle('forecast-flat', isFlat);
+    forecast.classList.toggle('positive-line', !isFlat);
+    forecast.classList.toggle('neutral-line', isFlat);
+    outcome.classList.toggle('positive', !isFlat);
+    outcome.classList.toggle('neutral', isFlat);
+    outcome.querySelector('strong').textContent = `${isFlat ? '' : '+'}${percent.toFixed(1)}%`;
+    outcome.querySelector('span').textContent = isFlat ? '→' : '↑';
+    chart.style.setProperty('--outcome-y', `${14 + (ys[3] - 28) * .6}%`);
+    count.textContent = `${activeCount} / 8`;
+    spark.setAttribute('aria-label', `Company stock history followed by a ${percent.toFixed(1)} percent ${isFlat ? 'flat' : 'upward'} forecast using ${activeCount} of 8 evidence items. The full-input reference forecast is 2.4 percent upward.`);
+    if (announcement) live.textContent = `${announcement} Forecast is now ${isFlat ? 'flat at' : 'up'} ${percent.toFixed(1)} percent.`;
   };
 
-  const renderEvidence = (next) => {
-    input.innerHTML = renderEvidenceGroup('Temporal Evidence', next.temporal) + renderEvidenceGroup('Textual Evidence', next.textual);
-  };
-
-  buttons.forEach((button) => button.addEventListener('click', () => {
-    buttons.forEach((item) => {
-      item.classList.toggle('active', item === button);
-      item.setAttribute('aria-pressed', item === button ? 'true' : 'false');
+  evidenceItems.forEach((item) => {
+    syncEvidenceButton(item);
+    input.querySelector(`[data-evidence-id="${item.id}"]`).addEventListener('click', () => {
+      workbench.classList.add('has-interacted');
+      item.active = !item.active;
+      syncEvidenceButton(item);
+      updateEvidenceForecast(`${item.label} ${item.active ? item.optional ? 'added' : 'restored' : 'removed'}.`);
     });
-    const next = evidenceData[button.dataset.mode];
-    renderEvidence(next);
-    output.classList.remove('supported', 'changed', 'invariant');
-    output.classList.add(next.tone);
-    mark.textContent = next.mark;
-    prediction.textContent = next.prediction;
-    confidence.textContent = next.confidence;
-  }));
+  });
 
-  renderEvidence(evidenceData.full);
+  resetButton.addEventListener('click', () => {
+    workbench.classList.add('has-interacted');
+    evidenceItems.forEach((item) => {
+      item.active = item.initial;
+      syncEvidenceButton(item);
+    });
+    updateEvidenceForecast('Evidence reset.');
+  });
+
+  workbench.addEventListener('focusin', () => workbench.classList.add('has-interacted'), { once: true });
+
+  updateEvidenceForecast();
 }
 
 const eventExample = document.querySelector('[data-event-example]');
@@ -303,19 +329,32 @@ const futureCard = document.querySelector('.future-card');
 if (futureCard) {
   const eventButtons = futureCard.querySelectorAll('[data-future-choice]');
   const stage = futureCard.querySelector('.future-stage');
-  const switcher = futureCard.querySelector('.future-switcher');
-  const path = futureCard.querySelector('[data-future-path]');
-  const mark = futureCard.querySelector('[data-future-mark]');
-  const relation = futureCard.querySelector('[data-future-relation]');
+  const market = futureCard.querySelector('[data-future-market]');
+  const spark = futureCard.querySelector('[data-future-chart]');
+  const live = futureCard.querySelector('[data-future-live]');
+  const counterfactualLine = futureCard.querySelector('[data-future-counterfactual-line]');
+  const counterfactualDot = futureCard.querySelector('[data-future-counterfactual-dot]');
+  const distanceLine = futureCard.querySelector('[data-future-distance-line]');
+  const distanceCapStart = futureCard.querySelector('[data-future-distance-cap-start]');
 
   const futureData = {
     warning: {
-      mode: 'matched', mark: '✓', relation: 'Closer',
-      aria: 'The profit warning event-history state is closer to the realized company stock price drop.'
+      counterfactual: false,
+      aria: 'Profit Warning selected. The fixed realized company stock price drops 2.6 percent.'
+    },
+    guidance: {
+      counterfactual: true,
+      points: '430,90 470,93 510,88 550,94 600,91',
+      endY: 91,
+      distanceY: 94,
+      aria: 'Stable Guidance selected. A gray counterfactual forecast stays nearly flat while the fixed realized company stock price drops, showing a moderate distance between them.'
     },
     buyback: {
-      mode: 'mismatched', mark: '×', relation: 'Farther',
-      aria: 'The swapped buyback-plan event-history state is farther from the realized company stock price drop.'
+      counterfactual: true,
+      points: '430,90 470,83 510,70 550,57 600,49',
+      endY: 49,
+      distanceY: 57,
+      aria: 'Buyback Plan selected. A gray counterfactual forecast rises while the fixed realized company stock price drops, showing a large distance between them.'
     }
   };
 
@@ -326,12 +365,16 @@ if (futureCard) {
       item.setAttribute('aria-pressed', selected ? 'true' : 'false');
     });
     const next = futureData[button.dataset.futureChoice];
-    switcher.classList.toggle('matched-mode', next.mode === 'matched');
-    switcher.classList.toggle('mismatched-mode', next.mode === 'mismatched');
-    path.classList.toggle('matched-path', next.mode === 'matched');
-    path.classList.toggle('mismatched-path', next.mode === 'mismatched');
+    if (next.counterfactual) {
+      counterfactualLine.setAttribute('points', next.points);
+      counterfactualDot.setAttribute('cy', next.endY);
+      distanceLine.setAttribute('y1', next.distanceY);
+      distanceCapStart.setAttribute('y1', next.distanceY);
+      distanceCapStart.setAttribute('y2', next.distanceY);
+    }
+    market.classList.toggle('show-counterfactual', next.counterfactual);
     stage.setAttribute('aria-label', next.aria);
-    mark.textContent = next.mark;
-    relation.textContent = next.relation;
+    spark.setAttribute('aria-label', next.aria);
+    live.textContent = next.aria;
   }));
 }

@@ -299,50 +299,57 @@
               <p class="objective-rule"><strong>Learning rule:</strong> cited evidence should be sufficient, necessary, and selective.</p>
             </article>
 
-            <div class="inline-demo objective-inline-demo future-inline-demo">
-              <button class="demo-toggle" type="button" aria-expanded="false" aria-controls="future-grounding-demo">
+            <div class="inline-demo objective-inline-demo future-inline-demo is-open" data-default-open>
+              <button class="demo-toggle" type="button" aria-expanded="true" aria-controls="future-grounding-demo">
                 <span class="demo-summary-visual future-preview" aria-hidden="true"><i></i><i></i><b></b></span>
                 <span class="demo-summary-copy">
                   <span class="demo-summary-label">Interactive check · Future grounding</span>
                   <strong>Compare the actual event with a swapped event.</strong>
                 </span>
               </button>
-              <div class="inline-demo-body" id="future-grounding-demo" hidden>
+              <div class="inline-demo-body" id="future-grounding-demo">
                 <div class="future-card">
-                  <div class="future-stage" aria-label="A profit warning state is closer to the realized price drop than a swapped buyback-plan state">
-                    <div class="future-history">
-                      <span class="stage-label">Same History</span>
-                      <svg class="future-spark history-spark" viewBox="0 0 150 58" role="img" aria-label="Stable company stock history">
-                        <polyline points="3,30 20,26 37,31 54,27 71,29 88,25 105,30 122,27 147,29"/>
+                  <div class="future-stage upgraded-future-stage" aria-label="Buyback Plan selected. A gray counterfactual forecast rises while the fixed realized company stock price drops, showing a large distance between them.">
+                    <div class="detailed-market future-market-chart forecast-negative show-counterfactual" data-future-market>
+                      <span class="market-name">Company Stock</span>
+                      <svg class="market-spark detailed-spark" viewBox="0 0 640 240" role="img" data-future-chart aria-label="Buyback Plan selected. A gray counterfactual forecast rises while the fixed realized company stock price drops, showing a large distance between them.">
+                        <defs>
+                          <linearGradient id="future-history-fill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3158e8" stop-opacity=".18"/><stop offset="1" stop-color="#3158e8" stop-opacity="0"/></linearGradient>
+                          <linearGradient id="future-realized-fill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#cf3f2e" stop-opacity=".17"/><stop offset="1" stop-color="#cf3f2e" stop-opacity="0"/></linearGradient>
+                        </defs>
+                        <g class="market-grid" aria-hidden="true">
+                          <line x1="44" y1="42" x2="604" y2="42"/><line x1="44" y1="90" x2="604" y2="90"/><line x1="44" y1="138" x2="604" y2="138"/><line x1="44" y1="186" x2="604" y2="186"/>
+                          <line x1="44" y1="34" x2="44" y2="190"/><line x1="137" y1="34" x2="137" y2="190"/><line x1="230" y1="34" x2="230" y2="190"/><line x1="323" y1="34" x2="323" y2="190"/><line x1="430" y1="34" x2="430" y2="190"/><line x1="517" y1="34" x2="517" y2="190"/><line x1="604" y1="34" x2="604" y2="190"/>
+                        </g>
+                        <rect class="market-realized-zone" x="430" y="34" width="174" height="156" rx="9"/>
+                        <g class="market-volume" aria-hidden="true"><rect x="54" y="173" width="12" height="17"/><rect x="82" y="165" width="12" height="25"/><rect x="110" y="176" width="12" height="14"/><rect x="138" y="159" width="12" height="31"/><rect x="166" y="168" width="12" height="22"/><rect x="194" y="151" width="12" height="39"/><rect x="222" y="163" width="12" height="27"/><rect x="250" y="145" width="12" height="45"/><rect x="278" y="158" width="12" height="32"/><rect x="306" y="139" width="12" height="51"/><rect x="334" y="154" width="12" height="36"/><rect x="362" y="132" width="12" height="58"/><rect x="390" y="148" width="12" height="42"/></g>
+                        <polygon class="market-history-area" points="44,120 76,112 108,118 140,106 172,114 204,99 236,108 268,94 300,103 332,88 364,98 397,84 430,90 430,190 44,190" fill="url(#future-history-fill)"/>
+                        <polygon class="market-realized-area" points="430,90 470,99 510,96 550,124 600,158 600,190 430,190" fill="url(#future-realized-fill)"/>
+                        <polyline class="market-history-line" points="44,120 76,112 108,118 140,106 172,114 204,99 236,108 268,94 300,103 332,88 364,98 397,84 430,90"/>
+                        <line class="market-event-line" x1="430" y1="34" x2="430" y2="190"/>
+                        <polyline class="market-realized-line" points="430,90 470,99 510,96 550,124 600,158"/>
+                        <g class="future-counterfactual" aria-hidden="true">
+                          <polyline class="future-counterfactual-line" data-future-counterfactual-line points="430,90 470,83 510,70 550,57 600,49"/>
+                          <circle class="future-counterfactual-dot" data-future-counterfactual-dot cx="600" cy="49" r="4"/>
+                          <line class="future-distance-line" data-future-distance-line x1="550" y1="57" x2="550" y2="124"/>
+                          <line class="future-distance-cap future-distance-cap-start" data-future-distance-cap-start x1="544" y1="57" x2="556" y2="57"/>
+                          <line class="future-distance-cap" x1="544" y1="124" x2="556" y2="124"/>
+                        </g>
+                        <circle class="market-now-dot" cx="430" cy="90" r="4"/>
+                        <circle class="market-realized-dot" cx="600" cy="158" r="4"/>
+                        <text class="market-scale" x="10" y="45">106</text><text class="market-scale" x="10" y="93">102</text><text class="market-scale" x="13" y="141">98</text><text class="market-scale" x="13" y="189">94</text>
+                        <text class="market-period-label" x="44" y="224">−6D</text><text class="market-period-label" x="230" y="224">−3D</text><text class="market-event-label" x="414" y="224">NOW</text><text class="market-period-label market-realized-label" x="540" y="224">REALIZED</text>
                       </svg>
-                      <strong>Company Stock</strong>
-                    </div>
-                    <div class="future-switcher matched-mode">
-                      <span class="stage-label">Select Event</span>
-                      <div class="future-event-tabs" role="group" aria-label="Select an event context">
-                        <button class="active" type="button" data-future-choice="warning" aria-pressed="true">Profit Warning</button>
-                        <button type="button" data-future-choice="buyback" aria-pressed="false">Buyback Plan</button>
-                      </div>
-                      <div class="future-path matched-path" data-future-path aria-live="polite">
-                        <span class="future-path-label">Representation Space</span>
-                        <div class="representation-track" aria-hidden="true">
-                          <span class="representation-axis"></span>
-                          <span class="representation-link"></span>
-                          <span class="representation-state"><i></i><small>State</small></span>
-                          <span class="representation-future"><i></i><small>Future</small></span>
-                        </div>
-                        <div class="future-path-result">
-                          <span class="relation-dot" data-future-mark>✓</span>
-                          <strong data-future-relation>Closer</strong>
+                      <div class="future-chart-selector" role="group" aria-label="Select an event context">
+                        <span>Event</span>
+                        <div class="future-event-tabs">
+                          <button class="active" type="button" data-future-choice="buyback" aria-pressed="true">Buyback Plan</button>
+                          <button type="button" data-future-choice="guidance" aria-pressed="false">Stable Guidance</button>
+                          <button type="button" data-future-choice="warning" aria-label="Profit Warning, observed event" aria-pressed="false">Profit Warning<i class="observed-event-mark" aria-hidden="true"></i></button>
                         </div>
                       </div>
-                    </div>
-                    <div class="realized-future">
-                      <span class="stage-label">Realized Future</span>
-                      <svg class="future-spark drop-spark" viewBox="0 0 150 58" role="img" aria-label="Company stock price drops in the realized future">
-                        <polyline points="3,12 20,16 37,15 54,23 71,28 88,34 105,39 122,47 147,52"/>
-                      </svg>
-                      <strong>Price Drop ↓</strong>
+                      <div class="detailed-outcome negative future-realized-outcome"><strong>−2.6%</strong><span>↓</span></div>
+                      <span class="sr-only" data-future-live aria-live="polite"></span>
                     </div>
                   </div>
                 </div>
@@ -358,24 +365,39 @@
                 </span>
               </button>
               <div class="inline-demo-body" id="behavioral-grounding-demo" data-evidence-example hidden>
-                <div class="segmented four" role="group" aria-label="Select evidence intervention">
-                  <button class="active" type="button" data-mode="full" aria-pressed="true">Full input</button>
-                  <button type="button" data-mode="retain" aria-pressed="false">Retain</button>
-                  <button type="button" data-mode="remove" aria-pressed="false">Remove</button>
-                  <button type="button" data-mode="irrelevant" aria-pressed="false">Irrelevant</button>
-                </div>
-                <div class="evidence-stage">
-                  <div class="evidence-input" data-evidence-input aria-live="polite"></div>
+                <div class="evidence-stage interactive-evidence-stage">
+                  <div class="evidence-workbench">
+                    <button class="evidence-reset" type="button" data-evidence-reset aria-label="Reset all evidence" title="Reset all evidence">↺</button>
+                    <div class="evidence-input" data-evidence-input></div>
+                  </div>
                   <span class="evidence-arrow" aria-hidden="true">→</span>
-                  <div class="behavior-output supported" data-behavior-output aria-live="polite">
-                    <span class="behavior-mark">↑</span>
-                    <div class="behavior-result">
-                      <span class="stage-label">How Will Price Move?</span>
-                      <div class="behavior-prediction">
-                        <strong data-behavior-prediction>Rise</strong>
-                        <span class="behavior-confidence"><small>Confidence</small><b data-behavior-confidence>78%</b></span>
-                      </div>
-                    </div>
+                  <div class="detailed-market behavior-market-chart forecast-up" data-behavior-chart>
+                    <span class="market-name">Company Stock</span>
+                    <svg class="market-spark detailed-spark" viewBox="0 0 360 190" role="img" data-behavior-spark aria-label="Company stock history followed by a 2.4 percent upward forecast with all evidence retained">
+                      <defs>
+                        <linearGradient id="behavior-history-fill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3158e8" stop-opacity=".18"/><stop offset="1" stop-color="#3158e8" stop-opacity="0"/></linearGradient>
+                        <linearGradient id="behavior-forecast-fill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1f844b" stop-opacity=".18"/><stop offset="1" stop-color="#1f844b" stop-opacity="0"/></linearGradient>
+                      </defs>
+                      <g class="market-grid" aria-hidden="true">
+                        <line x1="36" y1="32" x2="336" y2="32"/><line x1="36" y1="72" x2="336" y2="72"/><line x1="36" y1="112" x2="336" y2="112"/><line x1="36" y1="152" x2="336" y2="152"/>
+                        <line x1="36" y1="22" x2="36" y2="152"/><line x1="88" y1="22" x2="88" y2="152"/><line x1="140" y1="22" x2="140" y2="152"/><line x1="192" y1="22" x2="192" y2="152"/><line x1="240" y1="22" x2="240" y2="152"/><line x1="288" y1="22" x2="288" y2="152"/><line x1="336" y1="22" x2="336" y2="152"/>
+                      </g>
+                      <rect class="market-forecast-zone" x="240" y="22" width="96" height="130" rx="8"/>
+                      <g class="market-volume" aria-hidden="true"><rect x="42" y="140" width="8" height="12"/><rect x="60" y="135" width="8" height="17"/><rect x="78" y="142" width="8" height="10"/><rect x="96" y="131" width="8" height="21"/><rect x="114" y="137" width="8" height="15"/><rect x="132" y="128" width="8" height="24"/><rect x="150" y="134" width="8" height="18"/><rect x="168" y="125" width="8" height="27"/><rect x="186" y="132" width="8" height="20"/><rect x="204" y="122" width="8" height="30"/><rect x="222" y="129" width="8" height="23"/></g>
+                      <polygon class="market-history-area" points="36,122 54,114 72,118 90,104 108,98 126,104 144,90 162,86 180,92 198,78 216,82 240,64 240,152 36,152" fill="url(#behavior-history-fill)"/>
+                      <polygon class="market-forecast-area" data-behavior-forecast-area points="240,64 270,54 300,40 334,28 334,152 240,152" fill="url(#behavior-forecast-fill)"/>
+                      <polyline class="market-history-line" points="36,122 54,114 72,118 90,104 108,98 126,104 144,90 162,86 180,92 198,78 216,82 240,64"/>
+                      <line class="market-event-line" x1="240" y1="22" x2="240" y2="152"/>
+                      <polyline class="market-reference-line" points="240,64 270,54 300,40 334,28" aria-hidden="true"/>
+                      <polyline class="market-forecast-line positive-line" data-behavior-forecast points="240,64 270,54 300,40 334,28"/>
+                      <circle class="market-now-dot" cx="240" cy="64" r="4"/>
+                      <circle class="market-end-dot" data-behavior-end-dot cx="334" cy="28" r="4"/>
+                      <text class="market-scale" x="7" y="35">106</text><text class="market-scale" x="7" y="75">102</text><text class="market-scale" x="10" y="115">98</text><text class="market-scale" x="10" y="155">94</text>
+                      <text class="market-period-label" x="36" y="176">−6D</text><text class="market-period-label" x="135" y="176">−3D</text><text class="market-event-label" x="229" y="176">NOW</text><text class="market-period-label market-forecast-label" x="310" y="176">+3D</text>
+                    </svg>
+                    <div class="chart-event-tag evidence-chart-tag"><span>EVIDENCE</span><strong data-evidence-count>6 / 8</strong></div>
+                    <div class="detailed-outcome positive" data-behavior-outcome aria-live="polite"><strong>+2.4%</strong><span>↑</span></div>
+                    <span class="sr-only" data-evidence-live aria-live="polite"></span>
                   </div>
                 </div>
               </div>
