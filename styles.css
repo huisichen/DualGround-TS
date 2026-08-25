@@ -454,18 +454,26 @@ details.inline-demo:not([open])::after { position: absolute; left: 50%; bottom: 
 .detailed-outcome.neutral { color: #667189; }
 
 .future-stage { min-height: 235px; margin-top: 22px; padding: 18px; border: 1px solid #dce3ee; border-radius: 16px; background: linear-gradient(145deg, #f8f9fc, #f2f5fa); box-shadow: inset 0 1px 0 rgba(255,255,255,.9); }
-.future-market-chart { min-height: 286px; }
+.future-market-chart { width: min(100%, 880px); min-height: 286px; margin-inline: auto; }
+.future-market-chart .market-grid line { stroke-width: 1.2; }
+.future-market-chart .market-scale,
+.future-market-chart .market-event-label,
+.future-market-chart .market-period-label { font-size: 8.6px; }
+.future-market-chart .market-history-line { stroke-width: 3.35; }
+.future-market-chart .market-event-line { stroke-width: 1.45; }
+.future-market-chart .market-now-dot,
+.future-market-chart .market-realized-dot { stroke-width: 3; }
 .market-realized-zone { fill: rgba(207,63,46,.055); }
 .market-realized-area { fill: rgba(207,63,46,.13); }
-.market-realized-line { fill: none; stroke: var(--red); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+.market-realized-line { fill: none; stroke: var(--red); stroke-width: 3.6; stroke-linecap: round; stroke-linejoin: round; }
 .market-realized-dot { fill: white; stroke: var(--red); stroke-width: 2.5; }
 .market-realized-label { fill: var(--red); }
 .future-realized-outcome { --outcome-y: 67%; top: var(--outcome-y); }
 .future-counterfactual { opacity: 0; transition: opacity 180ms ease; }
 .show-counterfactual .future-counterfactual { opacity: 1; }
-.future-counterfactual-line { fill: none; stroke: #737d8e; stroke-width: 2.5; stroke-dasharray: 6 5; stroke-linecap: round; stroke-linejoin: round; transition: points 240ms var(--ease-in-out); }
-.future-counterfactual-dot { fill: white; stroke: #737d8e; stroke-width: 2.5; transition: cy 240ms var(--ease-in-out); }
-.future-distance-line, .future-distance-cap { stroke: #8b94a4; stroke-width: 1.5; stroke-dasharray: 2.5 3; }
+.future-counterfactual-line { fill: none; stroke: #737d8e; stroke-width: 3; stroke-dasharray: 7 6; stroke-linecap: round; stroke-linejoin: round; transition: points 240ms var(--ease-in-out); }
+.future-counterfactual-dot { fill: white; stroke: #737d8e; stroke-width: 3; transition: cy 240ms var(--ease-in-out); }
+.future-distance-line, .future-distance-cap { stroke: #8b94a4; stroke-width: 1.8; stroke-dasharray: 3 3.5; }
 .future-distance-line { transition: y1 240ms var(--ease-in-out); }
 .future-distance-cap-start { transition: y1 240ms var(--ease-in-out), y2 240ms var(--ease-in-out); }
 .future-chart-selector { position: absolute; left: 67.2%; top: 10px; z-index: 4; width: min(360px, 58%); padding: 4px; border: 1px solid #d8dfeb; border-top: 3px solid var(--red); border-radius: 10px; background: rgba(255,255,255,.96); box-shadow: 0 7px 16px rgba(20,33,58,.1); transform: translateX(-50%); transition: border-color 180ms ease, box-shadow 180ms ease; }
