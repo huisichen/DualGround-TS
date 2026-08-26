@@ -15,7 +15,6 @@
   <header class="site-header">
     <nav class="nav shell" aria-label="Primary navigation">
       <a class="brand" href="#top" aria-label="DualGround-TS home">
-        <span class="brand-mark" aria-hidden="true">D</span>
         <span>DualGround-TS</span>
       </a>
       <div class="nav-links">
@@ -33,22 +32,17 @@
       <div class="hero-copy reveal">
         <h1>DualGround-TS</h1>
         <p class="paper-title">Future-consistent cross-modal integration with behaviorally grounded explanations for event-conditioned time-series prediction</p>
-        <p class="hero-lede">A framework for <strong>event-conditioned time-series forecasting</strong> that grounds predictions in the realized future and explanations in predictive behavior.</p>
+        <p class="hero-lede"><strong>Forecast what happens next from a time-series history and a textual event</strong>—while verifying that both inputs shape the prediction and that the explanation identifies evidence the model actually uses.</p>
         <div class="hero-actions">
-          <a class="button primary" href="#resources">Project resources</a>
-          <a class="button secondary" href="#how">Explore the method</a>
+          <a class="button primary" href="#how">Explore the method</a>
+          <a class="button secondary" href="#resources">Project resources</a>
         </div>
       </div>
 
-      <div class="one-line reveal" aria-label="DualGround-TS in one sentence">
-        <span class="one-line-label">What is DualGround-TS?</span>
-        <p>Most models are supervised only by the final forecast. <strong>DualGround-TS also supervises how that forecast is formed:</strong> it requires the event–history representation to agree with what happens next, and requires the explanation’s cited evidence to actually affect the prediction.</p>
-      </div>
-
       <div class="summary-strip reveal" aria-label="DualGround-TS overview">
-        <div><span>01 · Read both sources</span><strong>Time series + textual event</strong><p>The same event can imply different outcomes under different temporal states.</p></div>
-        <div><span>02 · Ground the state</span><strong>Match the realized future</strong><p>The correct event–history pair should fit the observed future better than a mismatched pair.</p></div>
-        <div><span>03 · Ground the explanation</span><strong>Test the cited evidence</strong><p>Keeping, removing, or perturbing evidence should change the forecast in the expected way.</p></div>
+        <div><span>01 · Joint reasoning</span><strong>History + event</strong><p>Interpret the event in the context of the current temporal state.</p></div>
+        <div><span>02 · Future grounding</span><strong>Match the realized future</strong><p>Make the correct event–history pair more compatible with what actually happens next.</p></div>
+        <div><span>03 · Behavioral grounding</span><strong>Test the cited evidence</strong><p>Require the forecast to respond when its stated evidence is retained, removed, or perturbed.</p></div>
       </div>
 
     </section>
@@ -418,7 +412,7 @@
         <div class="section-heading reveal">
           <p class="eyebrow">03 · Does it work?</p>
           <h2>Evaluation from controlled diagnostics to real-world forecasting.</h2>
-          <p>The final page will report both task performance and grounding behavior.</p>
+          <p>Three complementary settings test mechanism validity, transfer, and multi-domain forecasting—using both task performance and grounding behavior.</p>
         </div>
 
         <div class="validation-path">
@@ -558,7 +552,7 @@
       <div class="shell">
         <div class="section-heading reveal">
           <p class="eyebrow">04 · Resources</p>
-          <h2>Project resources.</h2>
+          <h2>Paper, data, and implementation.</h2>
         </div>
 
         <div class="resource-grid">
@@ -579,8 +573,9 @@
   <footer class="footer">
     <div class="shell footer-inner">
       <div><strong>DualGround-TS</strong><p>Ground the prediction. Ground the explanation.</p></div>
-      <p>Research preview · manuscript under double-blind review</p>
+      <p>Event-conditioned time-series forecasting with grounded predictions and explanations.</p>
     </div>
   </footer>
 </body>
 </html>
+
