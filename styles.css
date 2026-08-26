@@ -436,6 +436,12 @@ details.inline-demo:not([open])::after { position: absolute; left: 50%; bottom: 
 .forecast-negative .market-forecast-label { fill: var(--red); }
 .market-now-dot { fill: white; stroke: var(--blue); stroke-width: 2.5; transition: cy 240ms var(--ease-in-out), stroke 180ms ease; }
 .negative-history .market-now-dot { stroke: var(--red); }
+
+/* Keep the observed Overheated history visually consistent with Weak;
+   only the post-news forecast carries the negative signal color. */
+[data-state-chart].negative-history .market-history-line,
+[data-state-chart].negative-history .market-now-dot { stroke: var(--series); }
+[data-state-chart].negative-history .market-history-area { fill: url("#state-history-fill"); }
 .evidence-stage { display: grid; grid-template-columns: minmax(0, 1.35fr) 34px minmax(220px, .85fr); gap: 14px; align-items: center; min-height: 235px; padding: 22px; border: 1px solid #dce3ee; border-radius: 16px; background: linear-gradient(145deg, #f8f9fc, #f2f5fa); box-shadow: inset 0 1px 0 rgba(255,255,255,.9); }
 .interactive-evidence-stage { grid-template-columns: minmax(320px, .9fr) 34px minmax(0, 1.15fr); }
 .evidence-workbench { position: relative; min-width: 0; }
