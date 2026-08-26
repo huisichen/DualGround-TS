@@ -645,4 +645,3 @@ details.inline-demo:not([open])::after { position: absolute; left: 50%; bottom: 
   .evidence-workbench:not(.has-interacted) .evidence-chip:first-child .evidence-chip-state::after { animation: none; opacity: .32; transform: scale(1); }
   .evidence-workbench:not(.has-interacted) .evidence-tap-cue { animation: none; opacity: .86; transform: translateY(-15%); }
 }
-
