@@ -4,8 +4,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="DualGround-TS grounds event-conditioned time-series predictions in future consistency and explanations in predictive behavior.">
+  <meta name="theme-color" content="#fbfbfa">
   <title>DualGround-TS — Ground the prediction. Ground the explanation.</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="assets/fonts/archivo-latin-variable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/ibm-plex-mono-latin-600.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="styles.css">
   <script defer src="script.js"></script>
 </head>
@@ -21,7 +24,6 @@
         <a href="#why">Why</a>
         <a href="#how">How</a>
         <a href="#results">Does it work</a>
-        <a href="#resources">Resources</a>
       </div>
       <a class="nav-paper" href="#resources">Resources</a>
     </nav>
@@ -132,8 +134,8 @@
                     <span class="market-name">Market Index</span>
                     <svg class="market-spark detailed-spark blue" viewBox="0 0 360 190" role="img" aria-label="Weak macro market history followed by a 2.4 percent upward forecast after the event">
                       <defs>
-                        <linearGradient id="state-history-fill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3158e8" stop-opacity=".18"/><stop offset="1" stop-color="#3158e8" stop-opacity="0"/></linearGradient>
-                        <linearGradient id="state-forecast-fill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1f844b" stop-opacity=".18"/><stop offset="1" stop-color="#1f844b" stop-opacity="0"/></linearGradient>
+                        <linearGradient id="state-history-fill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#45515b" stop-opacity=".18"/><stop offset="1" stop-color="#45515b" stop-opacity="0"/></linearGradient>
+                        <linearGradient id="state-forecast-fill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#35664a" stop-opacity=".18"/><stop offset="1" stop-color="#35664a" stop-opacity="0"/></linearGradient>
                       </defs>
                         <g class="market-grid" aria-hidden="true">
                           <line x1="36" y1="32" x2="336" y2="32"/><line x1="36" y1="72" x2="336" y2="72"/><line x1="36" y1="112" x2="336" y2="112"/><line x1="36" y1="152" x2="336" y2="152"/>
@@ -166,8 +168,8 @@
                     <span class="market-name">Market Index</span>
                     <svg class="market-spark detailed-spark blue" viewBox="0 0 360 190" role="img" aria-label="Fixed market history followed by a 2.4 percent upward forecast after a rate cut">
                       <defs>
-                        <linearGradient id="event-history-fill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3158e8" stop-opacity=".18"/><stop offset="1" stop-color="#3158e8" stop-opacity="0"/></linearGradient>
-                        <linearGradient id="event-forecast-fill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1f844b" stop-opacity=".18"/><stop offset="1" stop-color="#1f844b" stop-opacity="0"/></linearGradient>
+                        <linearGradient id="event-history-fill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#45515b" stop-opacity=".18"/><stop offset="1" stop-color="#45515b" stop-opacity="0"/></linearGradient>
+                        <linearGradient id="event-forecast-fill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#35664a" stop-opacity=".18"/><stop offset="1" stop-color="#35664a" stop-opacity="0"/></linearGradient>
                       </defs>
                         <g class="market-grid" aria-hidden="true">
                           <line x1="36" y1="32" x2="336" y2="32"/><line x1="36" y1="72" x2="336" y2="72"/><line x1="36" y1="112" x2="336" y2="112"/><line x1="36" y1="152" x2="336" y2="152"/>
@@ -230,7 +232,7 @@
         </div>
 
         <figure class="paper-figure reveal">
-          <img src="assets/motivation.png" alt="Paper motivation figure showing the same event under different temporal states, different events under a shared history, and behavioral tests of cited evidence.">
+          <img src="assets/motivation.png" alt="Paper motivation figure showing the same event under different temporal states, different events under a shared history, and behavioral tests of cited evidence." loading="lazy" decoding="async" width="1672" height="941">
           <figcaption><span>Figure 1</span> Joint multimodal assessment and behavioral support for explanations.</figcaption>
         </figure>
       </div>
@@ -308,8 +310,8 @@
                       <span class="market-name">Company Stock</span>
                       <svg class="market-spark detailed-spark" viewBox="0 0 640 240" role="img" data-future-chart aria-label="Buyback Plan selected. A gray counterfactual forecast rises while the fixed realized company stock price drops, showing a large distance between them.">
                         <defs>
-                          <linearGradient id="future-history-fill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3158e8" stop-opacity=".18"/><stop offset="1" stop-color="#3158e8" stop-opacity="0"/></linearGradient>
-                          <linearGradient id="future-realized-fill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#cf3f2e" stop-opacity=".17"/><stop offset="1" stop-color="#cf3f2e" stop-opacity="0"/></linearGradient>
+                          <linearGradient id="future-history-fill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#45515b" stop-opacity=".18"/><stop offset="1" stop-color="#45515b" stop-opacity="0"/></linearGradient>
+                          <linearGradient id="future-realized-fill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c43d14" stop-opacity=".17"/><stop offset="1" stop-color="#c43d14" stop-opacity="0"/></linearGradient>
                         </defs>
                         <g class="market-grid" aria-hidden="true">
                           <line x1="44" y1="42" x2="604" y2="42"/><line x1="44" y1="90" x2="604" y2="90"/><line x1="44" y1="138" x2="604" y2="138"/><line x1="44" y1="186" x2="604" y2="186"/>
@@ -369,8 +371,8 @@
                     <span class="market-name">Company Stock</span>
                     <svg class="market-spark detailed-spark" viewBox="0 0 360 190" role="img" data-behavior-spark aria-label="Company stock history followed by a 2.4 percent upward forecast with all evidence retained">
                       <defs>
-                        <linearGradient id="behavior-history-fill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3158e8" stop-opacity=".18"/><stop offset="1" stop-color="#3158e8" stop-opacity="0"/></linearGradient>
-                        <linearGradient id="behavior-forecast-fill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1f844b" stop-opacity=".18"/><stop offset="1" stop-color="#1f844b" stop-opacity="0"/></linearGradient>
+                        <linearGradient id="behavior-history-fill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#45515b" stop-opacity=".18"/><stop offset="1" stop-color="#45515b" stop-opacity="0"/></linearGradient>
+                        <linearGradient id="behavior-forecast-fill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#35664a" stop-opacity=".18"/><stop offset="1" stop-color="#35664a" stop-opacity="0"/></linearGradient>
                       </defs>
                       <g class="market-grid" aria-hidden="true">
                         <line x1="36" y1="32" x2="336" y2="32"/><line x1="36" y1="72" x2="336" y2="72"/><line x1="36" y1="112" x2="336" y2="112"/><line x1="36" y1="152" x2="336" y2="152"/>
@@ -401,7 +403,7 @@
         </div>
 
         <figure class="paper-figure method-figure reveal">
-          <img src="assets/method.png" alt="DualGround-TS architecture: temporal and textual evidence readouts feed a shared grounded state, with future-consistency and behavioral-grounding objectives used during training.">
+          <img src="assets/method.png" alt="DualGround-TS architecture: temporal and textual evidence readouts feed a shared grounded state, with future-consistency and behavioral-grounding objectives used during training." loading="lazy" decoding="async" width="1672" height="941">
           <figcaption><span>Figure 2</span> Complete DualGround-TS architecture and training objectives.</figcaption>
         </figure>
       </div>
