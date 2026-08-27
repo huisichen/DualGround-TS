@@ -24,7 +24,6 @@ html[data-theme]:not([data-theme="original"]) .section-heading h2 {
 
 .objective-preview-icon .icon-ink { stroke: var(--ink, #151515); }
 .objective-preview-icon .icon-accent { stroke: var(--red, #ff4b00); }
-.objective-preview-icon .icon-accent-fill { fill: var(--red, #ff4b00); }
 .evidence-preview {
   grid-template-columns: 1fr;
   grid-template-rows: 1fr;
