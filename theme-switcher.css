@@ -5,6 +5,13 @@
   transition: none !important;
 }
 
+/* Normalize section hierarchy without changing the hero title or the Original snapshot. */
+html[data-theme]:not([data-theme="original"]) .section-heading h2 {
+  font-size: clamp(2.2rem, 4.6vw, 4rem);
+  line-height: 1.05;
+  letter-spacing: -.052em;
+}
+
 .theme-cycle {
   --theme-cycle-accent: var(--signal, var(--red, #d34b22));
   flex: 0 0 auto;
@@ -88,4 +95,7 @@
     padding-inline: 9px;
   }
   .theme-cycle-kicker { display: none; }
+  html[data-theme]:not([data-theme="original"]) .section-heading h2 {
+    font-size: clamp(2rem, 10.5vw, 3rem);
+  }
 }
