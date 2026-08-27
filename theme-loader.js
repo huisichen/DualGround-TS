@@ -1,8 +1,8 @@
 (() => {
   'use strict';
 
-  const STORAGE_KEY = 'dualgroundts.visual-theme.v1';
-  const DEFAULT_THEME = 'vivid-light';
+  const STORAGE_KEY = 'dualgroundts.visual-theme.v2';
+  const DEFAULT_THEME = 'exaggerated-minimalism';
   const THEMES = Object.freeze({
     original: Object.freeze({
       label: 'Original',

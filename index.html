@@ -11,7 +11,7 @@
   <link rel="preload" href="assets/fonts/ibm-plex-mono-latin-600.woff2" as="font" type="font/woff2" crossorigin>
   <script src="theme-loader.js"></script>
   <link id="theme-switcher-styles" rel="stylesheet" href="theme-switcher.css">
-  <noscript><link rel="stylesheet" href="styles.css"></noscript>
+  <noscript><link rel="stylesheet" href="themes/exaggerated-minimalism.css"></noscript>
   <script defer src="script.js"></script>
 </head>
 <body class="style-flat style-light-minimalism">
@@ -28,10 +28,10 @@
         <a href="#results">Does it work</a>
       </div>
       <a class="nav-paper" href="#resources">Resources</a>
-      <button class="theme-cycle" type="button" data-theme-cycle aria-disabled="true" aria-busy="true" aria-label="Current style: Vivid Light. Activate to switch to Original.">
+      <button class="theme-cycle" type="button" data-theme-cycle aria-disabled="true" aria-busy="true" aria-label="Current style: Exaggerated Minimalism. Activate to switch to Flat Design.">
         <span class="theme-cycle-kicker" aria-hidden="true">Style</span>
-        <strong data-theme-label>Vivid Light</strong>
-        <span class="theme-cycle-count" data-theme-count aria-hidden="true">4 / 4 →</span>
+        <strong data-theme-label>Exaggerated Minimalism</strong>
+        <span class="theme-cycle-count" data-theme-count aria-hidden="true">2 / 4 →</span>
       </button>
       <span class="theme-switcher-live" aria-live="polite" data-theme-live></span>
     </nav>
@@ -305,7 +305,14 @@
 
             <div class="inline-demo objective-inline-demo future-inline-demo is-open" data-default-open>
               <button class="demo-toggle" type="button" aria-expanded="true" aria-controls="future-grounding-demo">
-                <span class="demo-summary-visual future-preview" aria-hidden="true"><i></i><i></i><b></b></span>
+                <span class="demo-summary-visual future-preview" aria-hidden="true">
+                  <svg class="objective-preview-icon swap-preview-icon" viewBox="0 0 48 40">
+                    <path class="icon-ink" d="M7 13h28"/>
+                    <path class="icon-accent" d="m30 8 5 5-5 5"/>
+                    <path class="icon-ink" d="M41 27H13"/>
+                    <path class="icon-accent" d="m18 22-5 5 5 5"/>
+                  </svg>
+                </span>
                 <span class="demo-summary-copy">
                   <span class="demo-summary-label">Interactive check · Future grounding</span>
                   <strong>Compare the actual event with a swapped event.</strong>
@@ -362,7 +369,14 @@
 
             <div class="inline-demo objective-inline-demo behavioral-inline-demo">
               <button class="demo-toggle" type="button" aria-expanded="false" aria-controls="behavioral-grounding-demo">
-                <span class="demo-summary-visual evidence-preview" aria-hidden="true"><i></i><i></i><i></i></span>
+                <span class="demo-summary-visual evidence-preview" aria-hidden="true">
+                  <svg class="objective-preview-icon intervention-preview-icon" viewBox="0 0 48 40">
+                    <rect class="icon-ink" x="5.5" y="5.5" width="25" height="29"/>
+                    <path class="icon-ink" d="M10 12.5h15M10 27.5h15"/>
+                    <rect class="icon-accent-fill" x="10" y="17.5" width="16" height="6"/>
+                    <path class="icon-accent" d="M26 20.5h16m-5-5 5 5-5 5"/>
+                  </svg>
+                </span>
                 <span class="demo-summary-copy">
                   <span class="demo-summary-label">Interactive check · Behavioral grounding</span>
                   <strong>Intervene on the evidence cited by the explanation.</strong>
