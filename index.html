@@ -4,15 +4,17 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="DualGround-TS grounds event-conditioned time-series predictions in future consistency and explanations in predictive behavior.">
-  <meta name="theme-color" content="#fbfbfa">
+  <meta name="theme-color" content="#fffdf8">
   <title>DualGround-TS: Ground the prediction. Ground the explanation.</title>
   <link rel="icon" href="assets/favicon.svg?v=dgts" type="image/svg+xml">
   <link rel="preload" href="assets/fonts/archivo-latin-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/ibm-plex-mono-latin-600.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="styles.css">
+  <script src="theme-loader.js"></script>
+  <link id="theme-switcher-styles" rel="stylesheet" href="theme-switcher.css">
+  <noscript><link rel="stylesheet" href="styles.css"></noscript>
   <script defer src="script.js"></script>
 </head>
-<body>
+<body class="style-flat style-light-minimalism">
   <a class="skip-link" href="#main">Skip to content</a>
 
   <header class="site-header">
@@ -26,6 +28,12 @@
         <a href="#results">Does it work</a>
       </div>
       <a class="nav-paper" href="#resources">Resources</a>
+      <button class="theme-cycle" type="button" data-theme-cycle aria-disabled="true" aria-busy="true" aria-label="Current style: Vivid Light. Activate to switch to Original.">
+        <span class="theme-cycle-kicker" aria-hidden="true">Style</span>
+        <strong data-theme-label>Vivid Light</strong>
+        <span class="theme-cycle-count" data-theme-count aria-hidden="true">4 / 4 →</span>
+      </button>
+      <span class="theme-switcher-live" aria-live="polite" data-theme-live></span>
     </nav>
   </header>
 
@@ -134,8 +142,8 @@
                     <span class="market-name">Market Index</span>
                     <svg class="market-spark detailed-spark blue" viewBox="0 0 360 190" role="img" aria-label="Weak macro market history followed by a 2.4 percent upward forecast after the event">
                       <defs>
-                        <linearGradient id="state-history-fill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#45515b" stop-opacity=".18"/><stop offset="1" stop-color="#45515b" stop-opacity="0"/></linearGradient>
-                        <linearGradient id="state-forecast-fill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#35664a" stop-opacity=".18"/><stop offset="1" stop-color="#35664a" stop-opacity="0"/></linearGradient>
+                        <linearGradient id="state-history-fill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1557d6" stop-opacity=".18"/><stop offset="1" stop-color="#1557d6" stop-opacity="0"/></linearGradient>
+                        <linearGradient id="state-forecast-fill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#007a45" stop-opacity=".18"/><stop offset="1" stop-color="#007a45" stop-opacity="0"/></linearGradient>
                       </defs>
                         <g class="market-grid" aria-hidden="true">
                           <line x1="36" y1="32" x2="336" y2="32"/><line x1="36" y1="72" x2="336" y2="72"/><line x1="36" y1="112" x2="336" y2="112"/><line x1="36" y1="152" x2="336" y2="152"/>
@@ -168,8 +176,8 @@
                     <span class="market-name">Market Index</span>
                     <svg class="market-spark detailed-spark blue" viewBox="0 0 360 190" role="img" aria-label="Fixed market history followed by a 2.4 percent upward forecast after a rate cut">
                       <defs>
-                        <linearGradient id="event-history-fill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#45515b" stop-opacity=".18"/><stop offset="1" stop-color="#45515b" stop-opacity="0"/></linearGradient>
-                        <linearGradient id="event-forecast-fill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#35664a" stop-opacity=".18"/><stop offset="1" stop-color="#35664a" stop-opacity="0"/></linearGradient>
+                        <linearGradient id="event-history-fill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1557d6" stop-opacity=".18"/><stop offset="1" stop-color="#1557d6" stop-opacity="0"/></linearGradient>
+                        <linearGradient id="event-forecast-fill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#007a45" stop-opacity=".18"/><stop offset="1" stop-color="#007a45" stop-opacity="0"/></linearGradient>
                       </defs>
                         <g class="market-grid" aria-hidden="true">
                           <line x1="36" y1="32" x2="336" y2="32"/><line x1="36" y1="72" x2="336" y2="72"/><line x1="36" y1="112" x2="336" y2="112"/><line x1="36" y1="152" x2="336" y2="152"/>
@@ -310,8 +318,8 @@
                       <span class="market-name">Company Stock</span>
                       <svg class="market-spark detailed-spark" viewBox="0 0 640 240" role="img" data-future-chart aria-label="Buyback Plan selected. A gray counterfactual forecast rises while the fixed realized company stock price drops, showing a large distance between them.">
                         <defs>
-                          <linearGradient id="future-history-fill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#45515b" stop-opacity=".18"/><stop offset="1" stop-color="#45515b" stop-opacity="0"/></linearGradient>
-                          <linearGradient id="future-realized-fill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c43d14" stop-opacity=".17"/><stop offset="1" stop-color="#c43d14" stop-opacity="0"/></linearGradient>
+                          <linearGradient id="future-history-fill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1557d6" stop-opacity=".18"/><stop offset="1" stop-color="#1557d6" stop-opacity="0"/></linearGradient>
+                          <linearGradient id="future-realized-fill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c5281c" stop-opacity=".17"/><stop offset="1" stop-color="#c5281c" stop-opacity="0"/></linearGradient>
                         </defs>
                         <g class="market-grid" aria-hidden="true">
                           <line x1="44" y1="42" x2="604" y2="42"/><line x1="44" y1="90" x2="604" y2="90"/><line x1="44" y1="138" x2="604" y2="138"/><line x1="44" y1="186" x2="604" y2="186"/>
@@ -371,8 +379,8 @@
                     <span class="market-name">Company Stock</span>
                     <svg class="market-spark detailed-spark" viewBox="0 0 360 190" role="img" data-behavior-spark aria-label="Company stock history followed by a 2.4 percent upward forecast with all evidence retained">
                       <defs>
-                        <linearGradient id="behavior-history-fill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#45515b" stop-opacity=".18"/><stop offset="1" stop-color="#45515b" stop-opacity="0"/></linearGradient>
-                        <linearGradient id="behavior-forecast-fill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#35664a" stop-opacity=".18"/><stop offset="1" stop-color="#35664a" stop-opacity="0"/></linearGradient>
+                        <linearGradient id="behavior-history-fill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1557d6" stop-opacity=".18"/><stop offset="1" stop-color="#1557d6" stop-opacity="0"/></linearGradient>
+                        <linearGradient id="behavior-forecast-fill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#007a45" stop-opacity=".18"/><stop offset="1" stop-color="#007a45" stop-opacity="0"/></linearGradient>
                       </defs>
                       <g class="market-grid" aria-hidden="true">
                         <line x1="36" y1="32" x2="336" y2="32"/><line x1="36" y1="72" x2="336" y2="72"/><line x1="36" y1="112" x2="336" y2="112"/><line x1="36" y1="152" x2="336" y2="152"/>

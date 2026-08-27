@@ -1,10 +1,11 @@
+/* Historical style snapshot: Flat Design, commit 8b42e12. */
 @font-face {
   font-family: "Archivo";
   font-style: normal;
   font-weight: 100 900;
   font-stretch: 62% 125%;
   font-display: swap;
-  src: url("assets/fonts/archivo-latin-variable.woff2") format("woff2");
+  src: url("../assets/fonts/archivo-latin-variable.woff2") format("woff2");
 }
 
 @font-face {
@@ -12,7 +13,7 @@
   font-style: normal;
   font-weight: 600;
   font-display: swap;
-  src: url("assets/fonts/ibm-plex-mono-latin-600.woff2") format("woff2");
+  src: url("../assets/fonts/ibm-plex-mono-latin-600.woff2") format("woff2");
 }
 
 :root {
@@ -930,233 +931,208 @@ details.inline-demo:not([open])::after,
   .training-objectives > .inline-demo:not(.is-open) > .demo-toggle::after { content: none; }
 }
 
-/* Vivid light Exaggerated Minimalism: keep the scale, spacing, and hard edges; lift the palette. */
-body.style-light-minimalism {
-  --paper: #fffdf8;
-  --ink: #1e2a86;
-  --ink-2: #3343a4;
-  --muted: #504db5;
-  --line: #7b8fd8;
-  --soft: #f1f4ff;
+/* Flat Design: preserve the existing layout and replace only the visual surface. */
+body.style-flat {
+  --ink: #111827;
+  --ink-2: #1b2434;
+  --muted: #667085;
+  --line: #c8d3e1;
+  --soft: #eef3f8;
   --white: #ffffff;
-  --series: #1557d6;
-  --series-soft: #e7eeff;
-  --red: #ff7a00;
-  --accent-ink: #c2410c;
-  --red-soft: #fff0e8;
-  --positive: #007a45;
-  --positive-soft: #dff7e9;
-  --negative: #c5281c;
-  --negative-soft: #ffe7e1;
-  --context: #6d3fd1;
-  --context-soft: #f0e8ff;
-  --data-muted: #4b5ab4;
-  --data-neutral: #4050b5;
-  --data-line: #c8d2f7;
-  --blue: var(--series);
-  --blue-soft: var(--series-soft);
+  --series: #374151;
+  --series-soft: #e8ebef;
+  --signal: #2867e8;
+  --signal-deep: #174eb8;
+  --signal-soft: #e7efff;
+  --event: #ff7a00;
+  --event-ink: #a94700;
+  --event-soft: #fff0da;
+  --negative: #b93834;
+  --negative-soft: #fbe7e5;
+  --positive: #0f7a42;
+  --positive-soft: #e3f5e9;
+  --context: #687386;
+  --context-soft: #edf0f4;
+  --blue: var(--signal);
+  --blue-soft: var(--signal-soft);
   --green: var(--positive);
   --green-soft: var(--positive-soft);
   --purple: var(--context);
   --purple-soft: var(--context-soft);
-  background: var(--paper);
+  --red: var(--signal);
+  --red-soft: var(--signal-soft);
+  --accent-ink: var(--signal-deep);
+  --data-muted: #6b7686;
+  --data-neutral: #687386;
+  --data-line: #cbd5e1;
+  --shadow: none;
+  --radius: 8px;
+  background: #f7f9fc;
 }
 
-body.style-light-minimalism .site-header { background: rgba(255, 253, 248, .96); }
-body.style-light-minimalism .section.soft { background: var(--soft); }
+body.style-flat *,
+body.style-flat *::before,
+body.style-flat *::after { box-shadow: none; }
 
-body.style-light-minimalism .inference-flow {
-  color: var(--ink);
-  background: var(--white);
-}
-body.style-light-minimalism .how-node { color: var(--ink); }
-body.style-light-minimalism .readout-item strong,
-body.style-light-minimalism .how-output strong,
-body.style-light-minimalism .shared-g-node > strong { color: var(--ink); }
-body.style-light-minimalism .readout-item small,
-body.style-light-minimalism .how-output small,
-body.style-light-minimalism .shared-g-node > small,
-body.style-light-minimalism .how-arrow small { color: var(--muted); }
-body.style-light-minimalism .node-label { color: var(--accent-ink); }
-body.style-light-minimalism .how-arrow { color: var(--data-muted); }
-body.style-light-minimalism .how-state-icon b { color: var(--ink); }
+body.style-flat .site-header { background: var(--white); }
+body.style-flat .section.soft { background: var(--soft); }
+body.style-flat .nav-paper,
+body.style-flat .button.primary { border-color: var(--signal); background: var(--signal); }
+body.style-flat .button.secondary { color: var(--signal-deep); border-color: var(--signal); background: var(--white); }
+body.style-flat .summary-strip { border-top-color: var(--signal); }
+body.style-flat .summary-strip > div:nth-child(1) { background: var(--signal-soft); }
+body.style-flat .summary-strip > div:nth-child(2) { background: var(--event-soft); }
+body.style-flat .summary-strip > div:nth-child(3) { background: var(--positive-soft); }
+body.style-flat .summary-strip > div + div { border-left-color: var(--white); }
 
-body.style-light-minimalism .why-transition { color: var(--ink); background: var(--red-soft); }
-body.style-light-minimalism .training-bridge { color: var(--ink); background: var(--soft); }
-body.style-light-minimalism .why-transition p,
-body.style-light-minimalism .training-bridge p { color: var(--muted); }
-body.style-light-minimalism .why-transition strong,
-body.style-light-minimalism .training-bridge strong { color: var(--ink); }
-body.style-light-minimalism .bridge-marker { color: var(--ink); background: var(--red); }
-body.style-light-minimalism .text-readout::before { border-color: var(--ink); }
-body.style-light-minimalism .text-readout i { background: var(--ink); }
+body.style-flat .why-transition,
+body.style-flat .training-bridge { background: var(--signal); }
+body.style-flat .inference-flow,
+body.style-flat .footer { background: var(--ink); }
+body.style-flat .how-state-icon,
+body.style-flat .readout-icon,
+body.style-flat .resource-icon { background: var(--signal); }
+body.style-flat .text-readout,
+body.style-flat .explanation-path-icon,
+body.style-flat .rationale-symbol { background: var(--event); }
+body.style-flat .how-state-icon b { color: var(--white); }
+body.style-flat .bridge-marker { color: var(--signal-deep); }
+body.style-flat .footer { border-top-color: var(--signal); }
 
-body.style-light-minimalism .segmented { background: #e8edff; }
-body.style-light-minimalism .segmented button.active,
-body.style-light-minimalism .future-event-tabs button.active,
-body.style-light-minimalism .future-event-tabs [data-future-choice].active {
-  color: var(--ink);
-  background: var(--red);
-}
-body.style-light-minimalism .segmented button.active svg polyline { stroke: var(--ink); }
-body.style-light-minimalism .demo-summary-visual,
-body.style-light-minimalism .training-objectives:has(> .objective-inline-demo.is-open) > .objective-inline-demo:not(.is-open) > .demo-toggle { background: #eaf0ff; }
-body.style-light-minimalism .resource-placeholder { color: var(--ink); background: var(--white); }
+body.style-flat .posthoc-demo,
+body.style-flat .success-criteria,
+body.style-flat .interactive-card,
+body.style-flat .resource-card,
+body.style-flat .citation-card,
+body.style-flat .inline-demo,
+body.style-flat .training-objectives > .inline-demo > .demo-toggle,
+body.style-flat .training-objectives > .inline-demo > .inline-demo-body { background: var(--white); }
+body.style-flat .detailed-market,
+body.style-flat .evidence-stage,
+body.style-flat .future-stage,
+body.style-flat .inline-demo-body { background: var(--soft); background-image: none; }
+body.style-flat .objective-rule { background: var(--white); }
+body.style-flat .segmented,
+body.style-flat .future-event-tabs { background: #dde5ef; }
+body.style-flat .segmented button.active,
+body.style-flat .future-event-tabs button.active { color: var(--white); background: var(--signal); box-shadow: none; }
 
-body.style-light-minimalism .footer {
-  color: var(--ink);
-  background: var(--soft);
-}
-body.style-light-minimalism .footer p { color: var(--muted); }
-body.style-light-minimalism .citation-card pre {
-  border: 1px solid var(--ink);
-  color: var(--ink);
-  background: var(--soft);
-}
+body.style-flat .fixed-badge,
+body.style-flat .shared-event { color: var(--event-ink); border-color: #ffbd7d; background: var(--event-soft); }
+body.style-flat .blue-fixed { color: var(--signal-deep); background: var(--signal-soft); }
+body.style-flat .state-hot { color: var(--event-ink); background: var(--event-soft); }
+body.style-flat .state-segmented [data-state="hot"] polyline { stroke: var(--event); }
+body.style-flat .chart-event-tag,
+body.style-flat .future-chart-selector { border-top-color: var(--event); background: var(--white); }
+body.style-flat .detailed-outcome { background: var(--white); }
+body.style-flat .observed-event-mark { border-color: var(--event); }
+body.style-flat .observed-event-mark::after { background: var(--event); }
 
-body.style-light-minimalism .paper-figure figcaption span,
-body.style-light-minimalism .intervention-icon,
-body.style-light-minimalism .event-chip,
-body.style-light-minimalism .fixed-badge,
-body.style-light-minimalism .state-hot { color: var(--accent-ink); }
-body.style-light-minimalism .future-objective .objective-number,
-body.style-light-minimalism .behavioral-objective .objective-number,
-body.style-light-minimalism .behavioral-objective .objective-label,
-body.style-light-minimalism .validation-index span,
-body.style-light-minimalism .transfer-stage .validation-index span,
-body.style-light-minimalism .domain-stage .validation-index span { color: var(--accent-ink); }
-body.style-light-minimalism .state-segmented [data-state="hot"] polyline { stroke: var(--accent-ink); }
+body.style-flat .positive-event { color: var(--positive); border-color: #83d4aa; }
+body.style-flat .outcome-up,
+body.style-flat .correct-result,
+body.style-flat .stable-behavior { color: var(--positive); background: var(--positive-soft); }
+body.style-flat .negative-event { border-color: #eaa09c; }
+body.style-flat :where(.negative-event, .outcome-down, .warning-step strong, .wrong-input, .wrong-result, .change-behavior, .draft-note strong, .detailed-outcome.negative) { color: var(--negative); }
+body.style-flat :where(.outcome-down, .wrong-input, .wrong-result, .change-behavior) { background: var(--negative-soft); }
+body.style-flat .removed-evidence span { color: var(--negative); background: var(--negative-soft); }
+body.style-flat .removed-evidence span::after { background: var(--negative); }
+body.style-flat .warning-step small { color: #8d4c48; }
+body.style-flat .draft-note { border-color: #eaa09c; border-left-color: var(--negative); background: var(--negative-soft); }
+body.style-flat .draft-note p { color: #785654; }
 
-body.style-light-minimalism .negative-event,
-body.style-light-minimalism .outcome-down,
-body.style-light-minimalism .warning-step strong,
-body.style-light-minimalism .wrong-input,
-body.style-light-minimalism .wrong-result,
-body.style-light-minimalism .change-behavior,
-body.style-light-minimalism .draft-note strong,
-body.style-light-minimalism .detailed-outcome.negative { color: var(--negative); }
-body.style-light-minimalism .outcome-down,
-body.style-light-minimalism .wrong-input,
-body.style-light-minimalism .wrong-result,
-body.style-light-minimalism .change-behavior { background: var(--negative-soft); }
+body.style-flat .future-objective .objective-number,
+body.style-flat .future-objective .objective-label { color: var(--signal); }
+body.style-flat .behavioral-objective .objective-number,
+body.style-flat .behavioral-objective .objective-label { color: var(--event-ink); }
+body.style-flat .future-inline-demo,
+body.style-flat .cross-modal-inline-demo { --demo-accent: var(--signal); --demo-soft: var(--signal-soft); }
+body.style-flat .behavioral-inline-demo { --demo-accent: var(--event); --demo-soft: var(--event-soft); }
+body.style-flat .intervention-icon { color: var(--event-ink); background: var(--event-soft); }
+body.style-flat .add-icon,
+body.style-flat .robustness-icon { color: var(--context); background: var(--context-soft); }
 
-body.style-light-minimalism .market-forecast-line.negative-line,
-body.style-light-minimalism .market-realized-line { stroke: var(--negative); }
-body.style-light-minimalism .forecast-negative .market-end-dot,
-body.style-light-minimalism .market-realized-dot { stroke: var(--negative); }
-body.style-light-minimalism .forecast-negative .market-forecast-label,
-body.style-light-minimalism .market-realized-label { fill: var(--negative); }
-body.style-light-minimalism .market-forecast-zone { fill: rgba(0, 122, 69, .08); }
-body.style-light-minimalism .forecast-negative .market-forecast-zone,
-body.style-light-minimalism .market-realized-zone { fill: rgba(197, 40, 28, .08); }
-body.style-light-minimalism .forecast-negative .market-forecast-area,
-body.style-light-minimalism .market-realized-area { fill: rgba(197, 40, 28, .14); }
+body.style-flat .series-chip { color: var(--series); background: var(--series-soft); }
+body.style-flat .event-chip,
+body.style-flat .important-chip.event-chip { color: var(--event-ink); border-color: #ffbd7d; background: var(--event-soft); }
+body.style-flat .series-chip .evidence-chip-state { background: var(--series); }
+body.style-flat .event-chip .evidence-chip-state { background: var(--event); }
+body.style-flat .irrelevant-chip .evidence-chip-state { background: var(--context); }
+body.style-flat .evidence-chip.is-unselected .evidence-chip-state { border: 1.5px solid #aeb8c7; box-shadow: none; }
+body.style-flat .evidence-behavior-icon { color: var(--event-ink); background: var(--event-soft); }
+body.style-flat .preview-blue-line { stroke: var(--positive); }
+body.style-flat .preview-red-line { stroke: var(--negative); }
+body.style-flat .evidence-preview i:first-child { background: var(--series); }
+body.style-flat .evidence-preview i:nth-child(2) { background: var(--event); }
+body.style-flat .evidence-preview i:nth-child(3) { background: var(--context); }
 
-body.style-light-minimalism .authors,
-body.style-light-minimalism .case-arrow,
-body.style-light-minimalism .objective-row b,
-body.style-light-minimalism .objective-row i,
-body.style-light-minimalism .muted-objective-state,
-body.style-light-minimalism .chart-event-tag span,
-body.style-light-minimalism .future-chart-selector > span,
-body.style-light-minimalism .future-event-tabs button,
-body.style-light-minimalism .resource-status.muted,
-body.style-light-minimalism .evidence-reset { color: var(--data-muted); }
-body.style-light-minimalism .evidence-chip.is-unselected { color: var(--data-muted); }
+body.style-flat .transfer-stage .validation-index span,
+body.style-flat .transfer-stage .validation-dataset { color: var(--event-ink); }
+body.style-flat .domain-stage .validation-index span,
+body.style-flat .domain-stage .validation-dataset { color: var(--context); }
+body.style-flat .table-scroll thead th { background: #dfe7f1; }
+body.style-flat .table-scroll .highlight-row { background: var(--signal-soft); }
+body.style-flat .paper-figure figcaption span,
+body.style-flat .resource-arrow { color: var(--signal); }
+body.style-flat .resource-placeholder { color: var(--muted); background: var(--white); }
+body.style-flat .resource-grid > :nth-child(2) .resource-icon { color: var(--ink); background: var(--event); }
+body.style-flat .resource-grid > :nth-child(3) .resource-icon { background: var(--positive); }
+body.style-flat .future-event-tabs [data-future-choice="warning"].active { color: var(--ink); background: var(--event); }
 
-body.style-light-minimalism .shared-event,
-body.style-light-minimalism .changing-event {
-  border-color: var(--line);
-  color: var(--ink-2);
-  background: var(--white);
-}
-body.style-light-minimalism .positive-event { border-color: var(--positive); color: var(--positive); }
-body.style-light-minimalism .negative-event { border-color: var(--negative); color: var(--negative); }
-body.style-light-minimalism .posthoc-arrow { color: var(--series); background: var(--series-soft); }
-body.style-light-minimalism .warning-step small { color: var(--negative); }
-body.style-light-minimalism .inference-note { border-color: var(--positive); background: var(--positive-soft); }
-body.style-light-minimalism .inference-note p { color: var(--positive); }
+body.style-flat .button:hover,
+body.style-flat .resource-card.live:hover,
+body.style-flat .evidence-chip:hover,
+body.style-flat .evidence-reset:hover,
+body.style-flat .important-chip.series-chip,
+body.style-flat .important-chip.event-chip,
+body.style-flat details.inline-demo:not([open]),
+body.style-flat .training-objectives > .inline-demo:not(.is-open) > .demo-toggle,
+body.style-flat .training-objectives > .inline-demo.is-open > .demo-toggle,
+body.style-flat .training-objectives > .inline-demo.is-open > .demo-toggle::after { box-shadow: none; }
 
-body.style-light-minimalism .table-scroll thead th { background: #e8edff; }
-body.style-light-minimalism .table-scroll th,
-body.style-light-minimalism .table-scroll td { border-color: var(--line); }
-body.style-light-minimalism .draft-note { border-color: var(--negative); background: var(--negative-soft); }
-body.style-light-minimalism .draft-note p { color: var(--negative); }
+body.style-flat .market-history-line,
+body.style-flat .negative-history .market-history-line { stroke: var(--series); }
+body.style-flat .market-history-area,
+body.style-flat [data-state-chart].negative-history .market-history-area { fill: var(--series-soft); }
+body.style-flat .market-now-dot,
+body.style-flat .negative-history .market-now-dot { stroke: var(--series); }
+body.style-flat .market-forecast-line.positive-line { stroke: var(--positive); }
+body.style-flat .market-forecast-line.negative-line,
+body.style-flat .market-realized-line { stroke: var(--negative); }
+body.style-flat .forecast-negative .market-end-dot,
+body.style-flat .market-realized-dot { stroke: var(--negative); }
+body.style-flat .forecast-negative .market-forecast-area,
+body.style-flat .market-realized-area { fill: var(--negative-soft); }
+body.style-flat .forecast-negative .market-forecast-zone,
+body.style-flat .market-realized-zone { fill: #f9efee; }
+body.style-flat .forecast-negative .market-forecast-label,
+body.style-flat .market-realized-label { fill: var(--negative); }
+body.style-flat .market-forecast-area { fill: var(--positive-soft); }
+body.style-flat .market-forecast-zone { fill: #edf8f1; }
 
-body.style-light-minimalism .segmented button,
-body.style-light-minimalism .future-event-tabs button { color: var(--muted); }
-body.style-light-minimalism .future-event-tabs { background: #eaf0ff; }
-
-body.style-light-minimalism .market-volume rect { fill: #7ea0ff; }
-body.style-light-minimalism .market-reference-line { stroke: var(--data-neutral); }
-body.style-light-minimalism .market-event-line { stroke: var(--red); }
-
-body.style-light-minimalism .evidence-chip-state { background: var(--data-neutral); }
-body.style-light-minimalism .evidence-reset {
-  border-color: var(--line);
-  color: var(--data-muted);
-  background: var(--white);
-}
-body.style-light-minimalism .evidence-tap-cue path:first-child { stroke: var(--ink); }
-body.style-light-minimalism .important-chip.series-chip {
-  border-color: var(--series);
-  color: var(--series);
-  background: var(--series-soft);
-}
-body.style-light-minimalism .important-chip.event-chip {
-  border-color: var(--accent-ink);
-  color: var(--accent-ink);
-  background: var(--red-soft);
-}
-body.style-light-minimalism .irrelevant-chip.context-chip {
-  border-color: var(--context);
-  color: var(--context);
-  background: var(--context-soft);
-}
-body.style-light-minimalism .evidence-chip.is-unselected {
-  border-color: var(--line);
-  color: var(--data-muted);
-  background: #eef2ff;
-}
-body.style-light-minimalism .evidence-chip.is-unselected .evidence-chip-state {
-  color: var(--data-muted);
-  background: var(--white);
-  box-shadow: inset 0 0 0 1.5px var(--data-muted);
-}
-body.style-light-minimalism .evidence-arrow { color: var(--context); }
-body.style-light-minimalism .behavior-market-chart.forecast-flat .market-forecast-zone { fill: rgba(64, 80, 181, .08); }
-body.style-light-minimalism .behavior-market-chart.forecast-flat .market-end-dot { stroke: var(--data-neutral); }
-body.style-light-minimalism .behavior-market-chart.forecast-flat .market-forecast-label { fill: var(--data-neutral); }
-body.style-light-minimalism .detailed-outcome.neutral { color: var(--data-neutral); }
-body.style-light-minimalism .observed-event-mark { border-color: var(--accent-ink); }
-
-body.style-light-minimalism .segmented button:focus-visible,
-body.style-light-minimalism .copy-button:focus-visible,
-body.style-light-minimalism a:focus-visible,
-body.style-light-minimalism .inline-demo summary:focus-visible,
-body.style-light-minimalism .demo-toggle:focus-visible,
-body.style-light-minimalism .evidence-chip:focus-visible,
-body.style-light-minimalism .evidence-reset:focus-visible,
-body.style-light-minimalism .future-event-tabs button:focus-visible {
-  outline-color: var(--series);
-}
-
-body.style-light-minimalism .button:hover,
-body.style-light-minimalism .resource-card.live:hover { transform: none; box-shadow: none; }
-body.style-light-minimalism .button,
-body.style-light-minimalism .nav-paper,
-body.style-light-minimalism .resource-card.live,
-body.style-light-minimalism .copy-button { transition: transform 150ms var(--ease-out), background-color 150ms ease, color 150ms ease, box-shadow 150ms ease; }
-
+body.style-flat :where(a, button, summary, [tabindex]):focus-visible,
+body.style-flat .inline-demo summary:focus-visible,
+body.style-flat .demo-toggle:focus-visible,
+body.style-flat .training-objectives > .future-inline-demo > .demo-toggle:focus-visible,
+body.style-flat .training-objectives > .behavioral-inline-demo > .demo-toggle:focus-visible { outline-color: var(--signal); }
+body.style-flat .segmented button:focus-visible,
+body.style-flat .copy-button:focus-visible,
+body.style-flat .future-event-tabs button:focus-visible,
+body.style-flat .evidence-chip:focus-visible,
+body.style-flat .evidence-reset:focus-visible { outline: 3px solid var(--signal); outline-offset: 2px; }
 @media (hover: hover) and (pointer: fine) {
-  body.style-light-minimalism .button:hover,
-  body.style-light-minimalism .resource-card.live:hover {
-    transform: translate(-2px, -2px);
-    box-shadow: 4px 4px 0 var(--red);
-  }
+  body.style-flat .nav-links a:hover { color: var(--signal); }
+  body.style-flat .button:hover,
+  body.style-flat .resource-card.live:hover { transform: none; }
+  body.style-flat .button.primary:hover,
+  body.style-flat .nav-paper:hover { background: var(--signal-deep); border-color: var(--signal-deep); }
+  body.style-flat .button.secondary:hover { color: var(--white); background: var(--signal); }
+  body.style-flat .segmented button:not(.active):hover,
+  body.style-flat .future-event-tabs button:not(.active):hover { color: var(--signal-deep); background: var(--white); }
+  body.style-flat .evidence-chip:hover,
+  body.style-flat .evidence-reset:hover { border-color: var(--signal); }
 }
 
-body.style-light-minimalism .button:active,
-body.style-light-minimalism .nav-paper:active,
-body.style-light-minimalism .resource-card.live:active,
-body.style-light-minimalism .copy-button:active { transform: scale(.97); }
+body.style-flat .button:active,
+body.style-flat .nav-paper:active,
+body.style-flat .resource-card.live:active { transform: scale(.98); }
