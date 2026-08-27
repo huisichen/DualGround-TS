@@ -1,10 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <defs>
-    <linearGradient id="g" x1="8" y1="6" x2="56" y2="58" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#cf3f2e"/>
-      <stop offset="1" stop-color="#ec775d"/>
-    </linearGradient>
-  </defs>
-  <rect width="64" height="64" rx="18" fill="url(#g)"/>
-  <path d="M20 16h13.3C44.2 16 51 22.1 51 32S44.2 48 33.3 48H20V16Zm12.8 23.4c5.8 0 9.1-2.6 9.1-7.4s-3.3-7.4-9.1-7.4h-3.9v14.8h3.9Z" fill="white"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title id="title">DualGround-TS monogram</title>
+  <g fill="#090909" font-family="Archivo, 'Arial Black', Arial, sans-serif" font-size="36" font-weight="900" letter-spacing="-2">
+    <text x="2.5" y="30" textLength="59" lengthAdjust="spacingAndGlyphs">DG</text>
+    <text x="2.5" y="62" textLength="59" lengthAdjust="spacingAndGlyphs">TS</text>
+  </g>
 </svg>
