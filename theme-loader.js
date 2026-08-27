@@ -7,7 +7,7 @@
     original: Object.freeze({
       label: 'Original',
       href: 'themes/original.css',
-      commit: 'fad75f6',
+      commit: '5807cf7',
       themeColor: '#ffffff',
       chart: Object.freeze({ history: '#3158e8', positive: '#1f844b', negative: '#cf3f2e' })
     }),
