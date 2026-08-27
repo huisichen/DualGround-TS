@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="DualGround-TS grounds event-conditioned time-series predictions in future consistency and explanations in predictive behavior.">
   <meta name="theme-color" content="#fbfbfa">
-  <title>DualGround-TS — Ground the prediction. Ground the explanation.</title>
+  <title>DualGround-TS: Ground the prediction. Ground the explanation.</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="preload" href="assets/fonts/archivo-latin-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/ibm-plex-mono-latin-600.woff2" as="font" type="font/woff2" crossorigin>
@@ -43,7 +43,7 @@
 
       <div class="summary-strip reveal" aria-label="DualGround-TS overview">
         <div><span>01 · Joint reasoning</span><strong>History + event</strong><p>Interpret the event in the context of the current temporal state.</p></div>
-        <div><span>02 · Future grounding</span><strong>Match the realized future</strong><p>Make the correct event–history pair more compatible with what actually happens next.</p></div>
+        <div><span>02 · Future grounding</span><strong>Match the realized future</strong><p>Make the real event and history more compatible with what actually happens next than a mismatched pairing.</p></div>
         <div><span>03 · Behavioral grounding</span><strong>Test the cited evidence</strong><p>Require the forecast to respond when its stated evidence is retained, removed, or perturbed.</p></div>
       </div>
 
@@ -275,8 +275,8 @@
 
           <div class="training-objectives">
             <article class="training-objective future-objective reveal">
-              <header class="objective-head"><span class="objective-number">1</span><div><span class="objective-label">Future Grounding</span><h3>Ground <em>G</em> in the event—not only the trend.</h3></div></header>
-              <p>Hold history fixed and swap the event. The real event–history state should align with the realized future more closely than an incompatible one.</p>
+              <header class="objective-head"><span class="objective-number">1</span><div><span class="objective-label">Future Grounding</span><h3>Ground <em>G</em> in the event, not only the trend.</h3></div></header>
+              <p>Hold history fixed and swap the event. The state built from the real event should align with the realized future more closely than one built from an incompatible event.</p>
               <div class="objective-diagram future-objective-diagram" aria-label="The real event state should be closer to the future than the swapped event state">
                 <div class="objective-row"><span class="fixed-input">same history</span><b>+</b><span class="real-input">real event</span><i>→</i><span class="objective-state">G<sup>+</sup></span><i>→</i><span class="objective-result correct-result">closer to future ✓</span></div>
                 <div class="objective-row"><span class="fixed-input">same history</span><b>+</b><span class="wrong-input">swapped event</span><i>→</i><span class="objective-state muted-objective-state">G<sup>−</sup></span><i>→</i><span class="objective-result wrong-result">farther from future</span></div>
@@ -414,7 +414,7 @@
         <div class="section-heading reveal">
           <p class="eyebrow">03 · Does it work?</p>
           <h2>Evaluation from controlled diagnostics to real-world forecasting.</h2>
-          <p>Three complementary settings test mechanism validity, transfer, and multi-domain forecasting—using both task performance and grounding behavior.</p>
+          <p>Three complementary settings test mechanism validity, transfer, and multi-domain forecasting through both task performance and grounding behavior.</p>
         </div>
 
         <div class="validation-path">
@@ -438,7 +438,7 @@
             <div class="validation-index"><span>2</span><small>Transfer</small></div>
             <div class="validation-copy">
               <span class="validation-dataset">Context is Key</span>
-              <h3>Does grounded temporal–language reasoning transfer to a new contextual forecasting task?</h3>
+              <h3>Does grounded reasoning over temporal data and language transfer to a new contextual forecasting task?</h3>
               <p>Zero-shot transfer to contextual forecasting.</p>
             </div>
             <div class="validation-details compact-details">
