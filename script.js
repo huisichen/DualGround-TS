@@ -1,3 +1,89 @@
+const themeCycleButton = document.querySelector('[data-theme-cycle]');
+const themeLabel = document.querySelector('[data-theme-label]');
+const themeCount = document.querySelector('[data-theme-count]');
+const themeLive = document.querySelector('[data-theme-live]');
+const themeManager = window.DGTSTheme;
+
+if (themeCycleButton && themeLabel && themeCount && themeLive && themeManager) {
+  const themeOrder = themeManager.order;
+  let themeControlLoading = themeManager.isLoading;
+
+  const setGradientColor = (ids, color) => {
+    ids.forEach((id) => {
+      document.querySelectorAll(`#${id} stop`).forEach((stop) => stop.setAttribute('stop-color', color));
+    });
+  };
+
+  const applyChartPalette = (config) => {
+    setGradientColor([
+      'state-history-fill',
+      'event-history-fill',
+      'future-history-fill',
+      'behavior-history-fill'
+    ], config.chart.history);
+    setGradientColor([
+      'state-forecast-fill',
+      'event-forecast-fill',
+      'behavior-forecast-fill'
+    ], config.chart.positive);
+    setGradientColor(['future-realized-fill'], config.chart.negative);
+  };
+
+  const syncThemeControl = (theme, announce = false) => {
+    const index = themeOrder.indexOf(theme);
+    const safeIndex = index >= 0 ? index : 0;
+    const currentTheme = themeOrder[safeIndex];
+    const nextTheme = themeOrder[(safeIndex + 1) % themeOrder.length];
+    const currentConfig = themeManager.themes[currentTheme];
+    const nextConfig = themeManager.themes[nextTheme];
+
+    themeLabel.textContent = currentConfig.label;
+    themeCount.textContent = `${safeIndex + 1} / ${themeOrder.length} →`;
+    themeCycleButton.setAttribute('aria-label', `Current style: ${currentConfig.label}. Activate to switch to ${nextConfig.label}.`);
+    applyChartPalette(currentConfig);
+    if (announce) themeLive.textContent = `Style changed to ${currentConfig.label}, ${safeIndex + 1} of ${themeOrder.length}.`;
+  };
+
+  const setThemeLoading = (loading) => {
+    themeControlLoading = loading;
+    themeCycleButton.setAttribute('aria-disabled', loading ? 'true' : 'false');
+    if (loading) themeCycleButton.setAttribute('aria-busy', 'true');
+    else themeCycleButton.removeAttribute('aria-busy');
+  };
+
+  themeCycleButton.addEventListener('click', () => {
+    if (themeControlLoading) return;
+    const currentIndex = themeOrder.indexOf(themeManager.activeTheme);
+    const nextTheme = themeOrder[(Math.max(currentIndex, 0) + 1) % themeOrder.length];
+    setThemeLoading(true);
+    themeManager.setTheme(nextTheme).catch(() => {
+      // The error event restores the control and announces the failure.
+    });
+  });
+
+  document.addEventListener('dgts:themeloading', () => setThemeLoading(true));
+  document.addEventListener('dgts:themechange', (event) => {
+    setThemeLoading(false);
+    syncThemeControl(event.detail.theme, true);
+  });
+  document.addEventListener('dgts:themeerror', (event) => {
+    if (event.detail.recovered) {
+      setThemeLoading(true);
+      return;
+    }
+    setThemeLoading(false);
+    themeLive.textContent = `Could not load ${themeManager.themes[event.detail.theme].label}. The current style was kept.`;
+  });
+
+  setThemeLoading(themeManager.isLoading);
+  themeManager.ready.then((result) => {
+    setThemeLoading(false);
+    syncThemeControl(result.theme);
+    if (!result.ok) themeLive.textContent = 'The visual styles could not be loaded. Browser defaults are being used.';
+    else if (themeManager.initialError) themeLive.textContent = `The saved style was unavailable. ${result.config.label} was loaded instead.`;
+  });
+}
+
 const revealItems = document.querySelectorAll('.reveal');
 const objectiveDemos = Array.from(document.querySelectorAll('.training-objectives > .inline-demo'));
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;

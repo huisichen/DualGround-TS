@@ -9,10 +9,12 @@
   <link rel="icon" href="assets/favicon.svg?v=dgts" type="image/svg+xml">
   <link rel="preload" href="assets/fonts/archivo-latin-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/ibm-plex-mono-latin-600.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="styles.css">
+  <script src="theme-loader.js"></script>
+  <link id="theme-switcher-styles" rel="stylesheet" href="theme-switcher.css">
+  <noscript><link rel="stylesheet" href="styles.css"></noscript>
   <script defer src="script.js"></script>
 </head>
-<body class="style-light-minimalism">
+<body class="style-flat style-light-minimalism">
   <a class="skip-link" href="#main">Skip to content</a>
 
   <header class="site-header">
@@ -26,6 +28,12 @@
         <a href="#results">Does it work</a>
       </div>
       <a class="nav-paper" href="#resources">Resources</a>
+      <button class="theme-cycle" type="button" data-theme-cycle aria-disabled="true" aria-busy="true" aria-label="Current style: Vivid Light. Activate to switch to Original.">
+        <span class="theme-cycle-kicker" aria-hidden="true">Style</span>
+        <strong data-theme-label>Vivid Light</strong>
+        <span class="theme-cycle-count" data-theme-count aria-hidden="true">4 / 4 →</span>
+      </button>
+      <span class="theme-switcher-live" aria-live="polite" data-theme-live></span>
     </nav>
   </header>
 
